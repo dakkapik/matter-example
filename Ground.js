@@ -1,11 +1,13 @@
-class Box {
+class Ground {
     constructor (x,y, width, height, options={}) {
         this.options = options
         this.w = width;
         this.h = height;
 
+        this.options.isStatic = true
+
         this.body = Bodies.rectangle(x,y,width, height, this.options)
-        this.body.label = "box"
+        this.body.label = "ground"
 
         Composite.add(engine.world, this.body)
 

@@ -1,88 +1,85 @@
 const Engine = Matter.Engine,
+    Collision = Matter.Collision,
     Runner = Matter.Runner,
     Bodies = Matter.Bodies,
     Body = Matter.Body,
     Composite = Matter.Composite,
-    Vector = Matter.Vector;
+    Vector = Matter.Vector,
+    Detector = Matter.Detector;
 
-let gmInput
-let gmConsole
+let gmInput;
+let gmConsole;
+let gm;
 
 let engine;
 let ground;
 let runner;
-let boxes = [];
+
 let player1;
 let player2;
 
 function setup() {
-    rectMode(CENTER)
-    createCanvas(900,600)
+    rectMode(CENTER);
+    gm = new Game(700, 600);
     engine = Engine.create();
     runner = Runner.create();
-    
     Runner.run(runner, engine);
     
-    let grOptions = {isStatic: true}
-    boxes.push(new Box(width/2, height-20, width, 10, grOptions))
-    player1 = new Box(50,80, 120,80)
-    player2 = new Box(120,80, 120,80)
+    gm.addGround(width/2, height-20, width, 40)
 
+    player1 = gm.addPlayer(120,80, 30, 80, "Aurelian")
+    player2 = gm.addPlayer(300,80, 30, 80, "Bastilan")
+
+    player2.setColor("green")
+
+    console.log(gm.players)
     gmConsole = new Console();
     gmInput = new Input();
-    console.log(player1.body.position)
-    gmConsole.addTracker("x Pos A", 'x', player1.body.position)
 }
 
 
 function keyPressed() {
     gmInput.addKey(keyCode)
 }
+
 function keyReleased() {
-    console.log(keyCode)
     gmInput.rmKey(keyCode)
+
+    if(keyCode === 87) {
+        //w
+        player1.jump();
+    }
+    
+    if(keyCode === 38) {
+        //up key
+        player2.jump();
+    }
 }
 
-function gmMove() {
+function keyHeld() {
     queue = gmInput.inputQueue
-
-    let vel = Vector.create(0,0)
-
-    if(queue.has(87)){
-        // w
-        let force = new Vector.create(0,-0.5)
-        Body.applyForce(player1.body, player1.body.position, force)
-    }
 
     if(queue.has(65)){
         // a
-        vel = Vector.add(vel, Vector.create(-5,0))
+        player1.moveLeft();
     }
 
     if(queue.has(68)){
         // d
-        vel = Vector.add(vel, new Vector.create(5,0))
+        player1.moveRight();
     }
 
-    Body.setVelocity(player1.body, vel)
-
-
     if(queue.has(81)){
-        console.log("this")
         // q
-        let force = new Vector.create(0.2,0)
-        Body.applyForce(player2.body, player1.body.position, force)
+        // player1.moveRight();
     }
 }
 
 function draw() {
-    gmMove()
-    background(220);
-    fill("red")
-    player1.show()
-    player2.show()
-    boxes.forEach(box => {
-        box.show()
-    })
-    gmConsole.update();
+    if(gmInput.values.play) {
+        keyHeld();
+        gm.redraw();
+        gm.show();
+        gmConsole.update();
+    }
 }
