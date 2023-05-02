@@ -3,7 +3,7 @@ class Input {
         this.values = {
             play: true
         }
-        this.startButton = document.getElementById('play');
+        this.startButton = document.getElementById('play-gm');
         this.inputQueue = new Set();
 
         this.startButton.addEventListener("click", ()=>{
