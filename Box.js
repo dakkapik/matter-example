@@ -1,8 +1,10 @@
 class Box {
-    constructor (x,y, width, height, options=null) {
+    constructor (x,y, width, height, options={}) {
+        this.options = options
         this.w = width;
         this.h = height;
-        this.body = Bodies.rectangle(x,y,width, height, options)
+
+        this.body = Bodies.rectangle(x,y,width, height, this.options)
         Composite.add(engine.world, this.body)
     }
 
