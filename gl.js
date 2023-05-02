@@ -19,9 +19,9 @@ let player1;
 let player2;
 
 function setup() {
+    gm = new Game(700, 600);
     rectMode(CENTER);
     imageMode(CENTER);
-    gm = new Game(700, 600);
     engine = Engine.create();
     runner = Runner.create();
     Runner.run(runner, engine);

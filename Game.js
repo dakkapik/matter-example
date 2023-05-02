@@ -1,6 +1,11 @@
 class Game {
     constructor(width, height) {
         createCanvas(width, height);
+        this.width = width;
+        this.height = height;
+        this.backgrounds = {
+            annaM : loadImage("assets/background/AnnabellaMoerbeck.png")
+        }
         this.ids = {}
         this.players = [];
         this.groundBoxes = [];
@@ -8,7 +13,11 @@ class Game {
     }
 
     redraw() {
-        background(220)
+        push()
+        imageMode(CORNERS)
+        image(this.backgrounds.annaM, 0,0, this.width, this.height)
+        pop()
+        
     }
 
     addPlayer(x,y,width,height, name) {

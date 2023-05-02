@@ -181,7 +181,7 @@ class Player {
         // fill(this.color)
         translate(pos.x, pos.y - this.h/3);
         rotate(angle);
-        rect(0,0,this.w,this.h);
+        // rect(0,0,this.w,this.h);
         if(this.fRight) {
             image(this.sprites.idle,0,0,this.w, this.h);
         } else {
