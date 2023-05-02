@@ -58,6 +58,10 @@ class Player {
         this.color = color;
     }
 
+    setSprite(name) {
+        this.sprites.idle = loadImage(`char/${name}.png`);
+    }
+
     addTracker(key, abs) {
         this.timerKeys[key] = [abs, this.timers.length]
         this.timers.push(0)

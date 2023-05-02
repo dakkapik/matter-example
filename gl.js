@@ -26,14 +26,17 @@ function setup() {
     runner = Runner.create();
     Runner.run(runner, engine);
     
-    gm.addGround(width/2, height-20, width, 40)
+    gm.addGround(100, 270, 150, 50)
+    gm.addGround(250, 500, 150, 50)
+    gm.addGround(340, 340, 150, 50)
+    gm.addGround(450, 550, 220, 40)
+    gm.addGround(650, 320, 150, 20)
 
     player1 = gm.addPlayer(120,80, 120, 120, "Aurelian")
-    player2 = gm.addPlayer(300,80, 30, 80, "Bastilan")
+    player2 = gm.addPlayer(300,80, 90, 120, "Bastilan")
 
-    player2.setColor("green")
+    player2.setSprite('DiegoShea')
 
-    console.log(gm.players)
     gmConsole = new Console();
     gmInput = new Input();
 }
@@ -70,9 +73,14 @@ function keyHeld() {
         player1.moveRight();
     }
 
-    if(queue.has(81)){
-        // q
-        // player1.moveRight();
+    if(queue.has(37)){
+        // left key
+        player2.moveLeft();
+    }
+
+    if(queue.has(39)){
+        // right key
+        player2.moveRight();
     }
 }
 
