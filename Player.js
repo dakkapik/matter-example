@@ -5,7 +5,7 @@ class Player {
         this.maxJumps = 1;
         this.airImpulse = 1; 
         this.runSpeed = 8;
-        this.jumpForce = -0.06
+        this.jumpForce = -0.08
 
         //timers
         this.timers = [];
@@ -35,12 +35,16 @@ class Player {
 
         this.body = Bodies.rectangle(x,y,width, height, this.options);
         this.body.label = "player";
-        // this.body.frictionAir = 0.2;
-    
+
+        this.comp = Composite.create()
+
         Composite.add(engine.world, this.body);
 
         //body mods
         Body.setCentre(this.body, Vector.create(0, this.h/3), true)
+        // Body.setDensity(this.body, 15)
+        Body.setMass(this.body, 4)
+
     }
 
     setName(name) {
