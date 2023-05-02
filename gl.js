@@ -20,6 +20,7 @@ let player2;
 
 function setup() {
     rectMode(CENTER);
+    imageMode(CENTER);
     gm = new Game(700, 600);
     engine = Engine.create();
     runner = Runner.create();
@@ -27,7 +28,7 @@ function setup() {
     
     gm.addGround(width/2, height-20, width, 40)
 
-    player1 = gm.addPlayer(120,80, 30, 80, "Aurelian")
+    player1 = gm.addPlayer(120,80, 120, 120, "Aurelian")
     player2 = gm.addPlayer(300,80, 30, 80, "Bastilan")
 
     player2.setColor("green")

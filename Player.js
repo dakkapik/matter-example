@@ -21,11 +21,14 @@ class Player {
         this.grounded = false;
         this.mRight = false;
         this.mLeft = false;
+        this.fRight = true;
 
         //RENDER REQUIRED 
         this.w = width;
         this.h = height;
-        this.color = "red"
+        this.sprites = {
+            idle: loadImage('char/AnnabellaMoerbeck.png')
+        }
 
         //option mods
         this.options = options
@@ -125,10 +128,12 @@ class Player {
 
     moveRight() {
         this.mRight = true;
+        this.fRight = true;
     }
 
     moveLeft() {
         this.mLeft = true;
+        this.fRight = false;
     }
 
     updateMove() {
@@ -173,11 +178,16 @@ class Player {
         let pos = this.body.position;
         let angle = this.body.angle;
         push();
-        fill(this.color)
+        // fill(this.color)
         translate(pos.x, pos.y - this.h/3);
         rotate(angle);
-        
         rect(0,0,this.w,this.h);
+        if(this.fRight) {
+            image(this.sprites.idle,0,0,this.w, this.h);
+        } else {
+            scale(-1,1)
+            image(this.sprites.idle,0,0,this.w, this.h);
+        }
         pop();
     }
 }
