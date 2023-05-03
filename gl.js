@@ -7,7 +7,7 @@ const Engine = Matter.Engine,
     Vector = Matter.Vector,
     Detector = Matter.Detector;
 
-let gmInput;
+let gmInput = new Input()
 let gmConsole;
 let gm;
 
@@ -33,14 +33,10 @@ function setup() {
     gm.addGround(1750, 520, 150, 20)
 
     player1 = gm.addPlayer(120,80, 120, 120, "Aurelian")
-    player2 = gm.addPlayer(300,80, 300, 120, "Bastilan")
+    player2 = gm.addPlayer(300,80, 90, 120, "Bastilan")
 
     // player2.setSprite('DiegoShea')
-    player2.setSprite('EmilioCorrales')
-
-
-    gmConsole = new Console();
-    gmInput = new Input();
+    player2.setSprite('EmilySmith')
 }
 
 
@@ -87,10 +83,9 @@ function keyHeld() {
 }
 
 function draw() {
-    if(gmInput.values.play) {
+    // if(gmInput.values.play) {
         keyHeld();
         gm.redraw();
         gm.show();
-        gmConsole.update();
-    }
+    // }
 }
