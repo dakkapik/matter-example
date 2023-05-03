@@ -19,23 +19,25 @@ let player1;
 let player2;
 
 function setup() {
-    gm = new Game(700, 600);
+    gm = new Game(1800, 1000);
     rectMode(CENTER);
     imageMode(CENTER);
     engine = Engine.create();
     runner = Runner.create();
     Runner.run(runner, engine);
     
-    gm.addGround(100, 270, 150, 50)
-    gm.addGround(250, 500, 150, 50)
-    gm.addGround(340, 340, 150, 50)
-    gm.addGround(450, 550, 220, 40)
-    gm.addGround(650, 320, 150, 20)
+    gm.addGround(250, 400, 350, 50)
+    gm.addGround(590, 800, 420, 50)
+    gm.addGround(900, 550, 400, 50)
+    gm.addGround(1200, 900,600, 40)
+    gm.addGround(1750, 520, 150, 20)
 
     player1 = gm.addPlayer(120,80, 120, 120, "Aurelian")
     player2 = gm.addPlayer(300,80, 90, 120, "Bastilan")
 
-    player2.setSprite('DiegoShea')
+    // player2.setSprite('DiegoShea')
+    player2.setSprite('ShannaRose')
+
 
     gmConsole = new Console();
     gmInput = new Input();

@@ -180,6 +180,7 @@ class Player {
         //state update bound to game loop
         this.update();
         let pos = this.body.position;
+        this.body.angle = 0;
         let angle = this.body.angle;
         push();
         // fill(this.color)
