@@ -1,10 +1,11 @@
 class Game {
     constructor(width, height) {
         createCanvas(width, height);
+   
         this.width = width;
         this.height = height;
         this.backgrounds = {
-            annaM : loadImage("assets/background/AnnabellaMoerbeck.png")
+            annaM : loadImage("assets/background/DaniellaRodriguez1.png")
         }
         this.ids = {}
         this.players = [];

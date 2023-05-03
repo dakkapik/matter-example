@@ -33,10 +33,10 @@ function setup() {
     gm.addGround(1750, 520, 150, 20)
 
     player1 = gm.addPlayer(120,80, 120, 120, "Aurelian")
-    player2 = gm.addPlayer(300,80, 90, 120, "Bastilan")
+    player2 = gm.addPlayer(300,80, 300, 120, "Bastilan")
 
     // player2.setSprite('DiegoShea')
-    player2.setSprite('ShannaRose')
+    player2.setSprite('EmilioCorrales')
 
 
     gmConsole = new Console();
