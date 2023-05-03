@@ -27,7 +27,7 @@ class Player {
         this.w = width;
         this.h = height;
         this.sprites = {
-            idle: loadImage('char/AnnabellaMoerbeck.png')
+            idle: loadImage('assets/char/AnnabellaMoerbeck.png')
         }
 
         //option mods
@@ -59,7 +59,7 @@ class Player {
     }
 
     setSprite(name) {
-        this.sprites.idle = loadImage(`char/${name}.png`);
+        this.sprites.idle = loadImage(`assets/char/${name}.png`);
     }
 
     addTracker(key, abs) {
