@@ -1,5 +1,6 @@
-class Game {
+class Game extends Input{
     constructor(width, height) {
+        super();
         createCanvas(width, height);
         this.width = width;
         this.height = height;
@@ -10,6 +11,8 @@ class Game {
         this.players = [];
         this.groundBoxes = [];
         this.boxes = [];
+
+        
     }
 
     redraw() {
@@ -74,5 +77,6 @@ class Game {
         this.players.forEach(player => player.show())
         this.groundBoxes.forEach(ground => ground.show())
         this.boxes.forEach(box => box.show())
+        if(this.values.console) this.console.update();
     }
 }

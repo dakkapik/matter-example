@@ -1,0 +1,19 @@
+html,body > div {
+    display: flex;
+}
+
+#console {
+    top: 25px;
+    position: absolute;
+}
+
+#bt-console {
+    position: absolute;
+}
+
+#console > div > p{
+    margin:0;
+    border-style: solid;
+    border-width: 2px;
+    padding: 0px 4px;
+}

@@ -1,5 +1,6 @@
 class Console {
     constructor() {
+        this.values = {}
         // multiple object tracking implementation needed
         this.window = document.getElementById("console");
         this.window.style.backgroundColor = "grey"
@@ -18,6 +19,14 @@ class Console {
         div.appendChild(val);
         div.style.display = "flex";
         this.window.appendChild(div);
+    }
+
+    hide() {
+        this.window.setAttribute("hidden", "hidden")
+    }
+
+    show() {
+        this.window.removeAttribute("hidden")
     }
 
     update(){

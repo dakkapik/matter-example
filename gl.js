@@ -6,9 +6,7 @@ const Engine = Matter.Engine,
     Composite = Matter.Composite,
     Vector = Matter.Vector,
     Detector = Matter.Detector;
-
-let gmInput;
-let gmConsole;
+    
 let gm;
 
 let engine;
@@ -38,19 +36,20 @@ function setup() {
     // player2.setSprite('DiegoShea')
     player2.setSprite('ShannaRose')
 
-    gmConsole = new Console();
-    gmInput = new Input();
+    let stage = new Stage("duck")
 
-    gmConsole.addTracker("x pos","x", player1.body.position)
+    // console.log(stage.)
+
+    gm.console.addTracker("x pos","x", player1.body.position)
 }
 
 
 function keyPressed() {
-    gmInput.addKey(keyCode)
+    gm.addKey(keyCode)
 }
 
 function keyReleased() {
-    gmInput.rmKey(keyCode)
+    gm.rmKey(keyCode)
 
     if(keyCode === 87) {
         //w
@@ -64,7 +63,7 @@ function keyReleased() {
 }
 
 function keyHeld() {
-    queue = gmInput.inputQueue
+    queue = gm.inputQueue
 
     if(queue.has(65)){
         // a
@@ -88,10 +87,9 @@ function keyHeld() {
 }
 
 function draw() {
-    if(gmInput.values.play) {
+    if(gm.values.play) {
         keyHeld();
         gm.redraw();
         gm.show();
-        gmConsole.update();
     }
 }
