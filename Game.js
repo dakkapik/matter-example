@@ -1,12 +1,17 @@
 class Game extends Input{
-    constructor(width, height) {
+    constructor(width, height, stageName) {
         super();
-        createCanvas(width, height);
-        this.width = width;
-        this.height = height;
-        this.backgrounds = {
-            annaM : loadImage("assets/background/AnnabellaMoerbeck.png")
-        }
+        this.stage = new Stage(width, height, stageName)
+
+        createCanvas(this.stage.w, this.stage.h);
+        this.iteration = 0;
+        // this.width = width;
+        // this.height = height;
+
+        // this could be a animation
+        this.stage.setbackground(
+            [ loadImage(`assets/background/${stageName}.png`) ])
+
         this.ids = {}
         this.players = [];
         this.groundBoxes = [];
@@ -15,10 +20,19 @@ class Game extends Input{
         
     }
 
+    setStage(name) {
+
+    }
+
+
     redraw() {
+        this.iteration ++
         push()
         imageMode(CORNERS)
-        image(this.backgrounds.annaM, 0,0, this.width, this.height)
+        image(
+            this.stage.background[this.iteration%this.stage.background.length] 
+            ,0,0, this.stage.w, this.stage.h
+            )
         pop()
         
     }
@@ -60,11 +74,11 @@ class Game extends Input{
     //     return player[action];
     // } 
 
-    addGround(x,y,width,height) {
-        let ground = new Ground(x,y,width,height);
-        this.groundBoxes.push(ground);
+    addGround(x,y,width,height, options) {
+        let g = new Ground(x,y,width,height, options);
+        this.groundBoxes.push(g);
         this.updateGroundDetector();
-        return ground;
+        return g;
     }
 
     addBox(x,y,width,height) {

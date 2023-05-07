@@ -3,6 +3,19 @@ class Ground {
         this.options = options
         this.w = width;
         this.h = height;
+        this.skin = false;
+
+        if(options.skin !== undefined) {
+            loadImage(`assets/blocks/${options.skin}.png`, 
+            (img)=> {
+                this.skin = img
+            },
+            ()=> {
+                console.log("FAILED LOADING SKIN" + skin);
+                this.skin = false;
+            })
+
+        }
 
         this.options.isStatic = true
 
@@ -12,7 +25,6 @@ class Ground {
         Composite.add(engine.world, this.body)
 
     }
-
     show() {
         let pos = this.body.position;
         let angle = this.body.angle;
@@ -20,8 +32,12 @@ class Ground {
         push();
         translate(pos.x, pos.y);
         rotate(angle);
-        
-        rect(0,0,this.w,this.h);
+        if(this.skin === false) {
+            rect(0,0,this.w,this.h);
+        } else {
+            image(this.skin, 0,0, this.w, this.h)
+        }
+
         pop();
     }
 }

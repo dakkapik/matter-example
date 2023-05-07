@@ -1,10 +1,13 @@
 class Input {
     constructor(){
+        // change this name to envVars
         this.values = {
             play: true,
             editStage: false,
-            console: true
+            console: true,
+            selectedItem: -1
         }
+
         this.inputQueue = new Set();
         this.console = new Console();
 
