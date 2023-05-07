@@ -27,7 +27,7 @@ class Player {
         this.w = width;
         this.h = height;
         this.sprites = {
-            idle: loadImage('assests/char/AnnabellaMoerbeck.png')
+            idle: loadImage('assets/char/AnnabellaMoerbeck.png')
         }
 
         //option mods

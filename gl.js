@@ -38,9 +38,10 @@ function setup() {
     // player2.setSprite('DiegoShea')
     player2.setSprite('ShannaRose')
 
-
     gmConsole = new Console();
     gmInput = new Input();
+
+    gmConsole.addTracker("x pos","x", player1.body.position)
 }
 
 
