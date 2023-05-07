@@ -48,6 +48,10 @@ class Game {
         })
     }
 
+    setStage ( name ) {
+        
+    }
+
     // getPlayerAction(id, action) {
     //     let player = this.players[this.ids[id]];
     //     return player[action];
