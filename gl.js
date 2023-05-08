@@ -5,7 +5,8 @@ const Engine = Matter.Engine,
     Body = Matter.Body,
     Composite = Matter.Composite,
     Vector = Matter.Vector,
-    Detector = Matter.Detector;
+    Detector = Matter.Detector,
+    Query = Matter.Query;
 
 let gm;
 
@@ -22,6 +23,11 @@ function setup() {
     engine = Engine.create();
     runner = Runner.create();
     Runner.run(runner, engine);
+
+    // gm.addStage(gm.width, gm.height, "AnnabellaMoerbeck")
+
+    let bgAnim = [loadImage("assets/background/AnnabellaMoerbeck.png")]
+    gm.setBackground( bgAnim )
 
     let options = {skin: "IsabelaRivera-t"}
 
@@ -85,10 +91,8 @@ function keyHeld() {
 }
 
 function draw() {
-    if(gm.values.play) {
-        keyHeld();
-        mouseHeld();
-        gm.redraw();
-        gm.show();
-    }
+    keyHeld();
+    mouseHeld();
+    gm.redraw();
+    gm.show();
 }

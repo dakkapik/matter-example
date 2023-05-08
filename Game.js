@@ -1,27 +1,47 @@
-class Game extends Input{
-    constructor(width, height, stageName) {
+class Game extends Editor{
+    constructor(width, height, name) {
         super();
-        this.stage = new Stage(width, height, stageName)
-
-        createCanvas(this.stage.w, this.stage.h);
+        createCanvas(width, height);
+        this.name = name
         this.iteration = 0;
-        // this.width = width;
-        // this.height = height;
+        this.width = width;
+        this.height = height;
 
         // this could be a animation
-        this.stage.setbackground(
-            [ loadImage(`assets/background/${stageName}.png`) ])
-
-        this.ids = {}
+        this.background = false;
         this.players = [];
         this.groundBoxes = [];
         this.boxes = [];
-
-        
+        this.stages = {};
+        this.stageName = '';
     }
 
-    setStage(name) {
+    changeToStage(){
 
+    }
+
+    saveStage( ) {
+        if(this.stages[this.name]){
+            console.log("STAGE WITH THIS NAME ALREADY EXISTS")
+        } else {
+            this.stageName = this.name;
+            this.stages[this.name] = new Stage();
+            this.stages[this.name].saveStage(
+                this.name,
+                this.width,
+                this.height,
+                this.background,
+                this.players,
+                this.groundBoxes,
+                this.boxes
+            )
+        }
+    }
+
+    setBackground(bgAnimation) {
+        // console.log(bgAnimation[0])
+        // array of loaded images for bg animation
+        this.background = bgAnimation
     }
 
 
@@ -29,16 +49,18 @@ class Game extends Input{
         this.iteration ++
         push()
         imageMode(CORNERS)
-        image(
-            this.stage.background[this.iteration%this.stage.background.length] 
-            ,0,0, this.stage.w, this.stage.h
-            )
+        if(this.background) {
+            image(
+                this.background[this.iteration%this.background.length] 
+                ,0,0, this.width, this.height)
+        } else {
+            background(220)
+        }
         pop()
         
     }
 
     addPlayer(x,y,width,height, name) {
-        this.ids[name] = this.players.length;
         let player = new Player(x,y,width,height);
         player.setName(name);
         this.players.push(player);
@@ -46,10 +68,6 @@ class Game extends Input{
 
         return player
     }
-
-    // setPlayerColor(color) {
-
-    // }
 
     updateGroundDetector() {
         this.players.forEach(player => {
@@ -68,11 +86,6 @@ class Game extends Input{
     setStage ( name ) {
         
     }
-
-    // getPlayerAction(id, action) {
-    //     let player = this.players[this.ids[id]];
-    //     return player[action];
-    // } 
 
     addGround(x,y,width,height, options) {
         let g = new Ground(x,y,width,height, options);

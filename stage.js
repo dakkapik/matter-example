@@ -1,124 +1,120 @@
 class Stage {
-  constructor(width, height, name) {
-
-    this.w = width
-    this.h = height
+  constructor() {
+    this.w = 0;
+    this.h = 0;
 
     // BACKGROUND SETTER TAKES AN ARRAY OF NAMES FOR ANIMAITON
     this.background = [];
 
-    this.name = name;
-    this.players = [];
+    this.name = '';
+    this.player = [];
     this.ground = [];
-    this.blocks = [];
-    this.keys = [];
+    this.block = [];
+  }
+
+  saveStage(name, width, height, backgrounds, players, grounds, blocks){
+    this.setName(name) 
+    this.setDimentions(width, height)
+    this.setbackground(backgrounds)
+    this.setPlayers(players)
+    this.setGround(grounds)
+    this.setBlocks(blocks)
+    this.downloadStage();
   }
   
-  getItemId(x, y) {
-    let itemFound = this.checkHitboxByLabel("characters", x, y)
-
-    if(itemFound) { return itemFound }
-    itemFound = this.checkHitboxByLabel("ground", x, y)
-    if(itemFound) { return itemFound }
-    itemFound = this.checkHitboxByLabel("blocks", x, y)
-    if(itemFound) { return itemFound }
-
-    return -1;
+  downloadStage() {
+    console.log(this)
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify({
+      name: this.name,
+      player: this.player,
+      ground: this.ground,
+      block: this.block,
+      background: this.background,
+      width: this.w,
+      height: this.h
+    }));
+    const dlAnchorElem = document.getElementById('downloadAnchorElem');
+    dlAnchorElem.setAttribute("href",     dataStr     );
+    dlAnchorElem.setAttribute("download", "scene.json");
+    dlAnchorElem.click();
   }
 
-  checkHitboxByLabel(label, x, y){
-    this[label].forEach(element => {
-      if(
-        x > element.body.position.x - element.width/2 &&
-        x < element.body.position.x + element.width/2 &&
-        y > element.body.position.y - element.height/2 &&
-        y < element.body.position.y + element.height/2
-        ){
-          return element
-        }
-    })
-    return false;
+  setDimentions(w, h) {
+    this.w = w;
+    this.h = h;
   }
 
-  getname() {
-    return this.name;
+  setName(name) {
+    this.name = name
+  } 
+
+  setbackground(backgrounds) {
+    backgrounds.forEach(b => this.background.push(b))
   }
-  setname(inname) {
-    this.name = inname;
+
+  setPlayers(players) {
+    players.forEach(p => this.player.push(p))
   }
+
+  setGround(grounds) {
+    grounds.forEach(g => this.ground.push(g))
+  }
+
+  setBlocks(blocks) {
+    blocks.forEach(b => this.block.push(b))
+  }
+
+
+  // getname() {
+  //   return this.name;
+  // }
+  // setname(inname) {
+  //   this.name = inname;
+  // }
   
-  getcharacters() {
-    return this.players;
-  }
+  // getbackground() {
+  //   return this.background;
+  // }
 
-  setcharacters(incharacters) {
-    this.players = incharacters;
-  }
+  // setbackground(bgArray) {
+  //   bgArray.forEach(bg => {
+  //     this.background.push(bg);
+  //   })
+  // }
   
-  getbackground() {
-    return this.background;
-  }
+  // getground() {
+  //   return this.ground;
+  // }
 
-  setbackground(bgArray) {
-    bgArray.forEach(bg => {
-      this.background.push(bg);
-    })
-  }
+  // deleteGround(id) {
+  //   this.ground.filter( g => g.body.id !== id)
+  // }
+
+  // addGround(g) {
+  //   this.ground.push(g);
+  // }
+
+  // moveItem(label, arrayPosition, position) {
+  //   //requires to know the array position of wanted block
+  //   this[label][arrayPosition].body.position = position
+  // }
   
-  getground() {
-    return this.ground;
-  }
+  // changeWidth (label, arrayPosition, x) {
+  //   let item = this[label][arrayPosition]
+  //   let delta = (x - item.body.position.x) - item.width
+  //   item.width = delta;
+  // }
 
-  deleteGround(id) {
-    this.ground.filter( g => g.body.id !== id)
-  }
+  // changeHeight(label, arrayPosition, y) {
+  //   let item = this[label][arrayPosition]
+  //   let delta = (y - item.body.position.y) - item.width
+  //   item.height = delta;
+  // }
 
-  addGround(g) {
-    this.ground.push(g);
-  }
-
-  moveItem(label, arrayPosition, position) {
-    //requires to know the array position of wanted block
-    this[label][arrayPosition].body.position = position
-  }
-  
-  changeWidth (label, arrayPosition, x) {
-    let item = this[label][arrayPosition]
-    let delta = (x - item.body.position.x) - item.width
-    item.width = delta;
-  }
-
-  changeHeight(label, arrayPosition, y) {
-    let item = this[label][arrayPosition]
-    let delta = (y - item.body.position.y) - item.width
-    item.height = delta;
-  }
-
-  getblocks() {
-    return this.blocks;
-  }
-  setblocks(inblocks) {
-    this.blocks = inblocks;
-  }
-}
-
-function mousePressed() {
-  gm.addKey("mouse-down")
-}
-
-function mouseReleased() {
-  gm.rmKey("mouse-down")
-  if(gm.values.editStage) {
-    let item = gm.stage.getItemId(mouseX, mouseY)
-    console.log(item)
-    gm.values.selectedItem = item
-  }
-}
-
-function mouseHeld() {
-  if(gm.inputQueue.has("mouse-down")){
-    if(gm.values.editStage || gm.values.selectedItem > -1) {
-
-    }
-  }
+  // getblocks() {
+  //   return this.blocks;
+  // }
+  // setblocks(inblocks) {
+  //   this.blocks = inblocks;
+  // }
 }
