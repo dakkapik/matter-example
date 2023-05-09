@@ -8,8 +8,10 @@ class Player extends Entity{
         this.name = 'player';
         this.maxJumps = 1;
         this.airImpulse = 1; 
-        this.runSpeed = 8;
-        this.jumpForce = -0.08
+        this.runSpeed = 1.2;
+        this.accVect = Vector.create(this.runSpeed,0);
+        this.topSpeed = 8;
+        this.jumpForce = -0.3
 
         //timers
         this.timers = [];
@@ -19,12 +21,10 @@ class Player extends Entity{
 
         //counters
         this.jumps = 0;
-        this.acc = Vector.create(0,1);
 
         //flags
         this.grounded = false;
-        this.mRight = false;
-        this.mLeft = false;
+        this.running = false;
         this.fRight = true;
 
         //RENDER REQUIRED 
@@ -46,12 +46,14 @@ class Player extends Entity{
 
         this.comp = Composite.create()
 
+        this.velMod = Body.getVelocity(this.body)
+
         Composite.add(engine.world, this.body);
 
         //body mods
-        Body.setCentre(this.body, Vector.create(0, this.h/3), true)
+        // Body.setCentre(this.body, Vector.create(0, this.h/3), true)
         // Body.setDensity(this.body, 15)
-        Body.setMass(this.body, 4)
+        // Body.setMass(this.body, 4)
 
     }
 
@@ -132,43 +134,46 @@ class Player extends Entity{
     }
 
     moveRight() {
-        this.mRight = true;
+        this.running = true;
         this.fRight = true;
     }
 
     moveLeft() {
-        this.mLeft = true;
+        this.running = true;
         this.fRight = false;
     }
 
     updateMove() {
-        this.acc= Vector.create(0,0)
-        if(this.mRight) {
-            this.acc = Vector.add(this.acc, Vector.create(this.runSpeed, 0))
-        }
-        if(this.mLeft) {
-            this.acc = Vector.add(this.acc, Vector.create(-this.runSpeed, 0))
+        let acc = Vector.create(0,0)
+        if(this.running) {
+            // console.log()
+            if(Math.abs(this.velMod.x) < this.topSpeed) {
+                if(this.fRight) {
+                    acc = Vector.add(acc, this.accVect)
+                } else {
+                    acc = Vector.add(acc, Vector.neg(this.accVect))
+                }
+            }
         }
 
-        if(this.grounded){
-            Body.setVelocity(this.body, this.acc)
-        } else {
-            let currVel = Body.getVelocity(this.body)
-            let modAirVel = Vector.div(this.acc, this.runSpeed*4)
-
-            let modVel = Vector.add(currVel, modAirVel)
-            Body.setVelocity(this.body, modVel)
+        if(!this.grounded) {
+            acc = Vector.mult(acc, 0.2)
         }
-        this.mLeft = false
-        this.mRight = false
+
+        this.velMod = Vector.add(acc, this.velMod)
+        console.log(this.velMod)
+        this.running = false;
     }
 
     movement() {
+        this.velMod = Body.getVelocity(this.body)
         this.updateJump()
         this.updateMove()
+        Body.setVelocity(this.body, this.velMod)
     }
 
     update() {
+        this.body.angle = 0;
         //tick timers for state update
         this.tickTimers()
         // check collision with ground collision detector
