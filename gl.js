@@ -96,7 +96,6 @@ function draw() {
         keyHeld();
         gm.redraw();
         gm.show();
-        gm.showHitboxes();
         gmConsole.update();
     }
 }

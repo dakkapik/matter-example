@@ -1,5 +1,9 @@
-class Player {
+class Player extends Entity{
     constructor (x,y, width, height, options={}) {
+        super()
+        //TEST SETTINGS 
+        this.settings.show_hitbox = true;
+
         //player properties
         this.name = 'player';
         this.maxJumps = 1;
@@ -26,6 +30,7 @@ class Player {
         //RENDER REQUIRED 
         this.w = width;
         this.h = height;
+        this.settings.skin = true;
         this.sprites = {
             idle: loadImage('char/AnnabellaMoerbeck.png')
         }
@@ -170,24 +175,25 @@ class Player {
         this.checkGround()
         //increase jumpVel as long as timer lasts
         this.movement()
+
+        this.show()
     }
 
-    show() {
-        //state update bound to game loop
-        this.update();
-        let pos = this.body.position;
-        let angle = this.body.angle;
-        push();
-        // fill(this.color)
-        translate(pos.x, pos.y - this.h/3);
-        rotate(angle);
-        rect(0,0,this.w,this.h);
-        if(this.fRight) {
-            image(this.sprites.idle,0,0,this.w, this.h);
-        } else {
-            scale(-1,1)
-            image(this.sprites.idle,0,0,this.w, this.h);
-        }
-        pop();
-    }
+    // show() {
+    //     //state update bound to game loop
+    //     let pos = this.body.position;
+    //     let angle = this.body.angle;
+    //     push();
+    //     // fill(this.color)
+    //     translate(pos.x, pos.y - this.h/3);
+    //     rotate(angle);
+    //     rect(0,0,this.w,this.h);
+    //     if(this.fRight) {
+    //         image(this.sprites.idle,0,0,this.w, this.h);
+    //     } else {
+    //         scale(-1,1)
+    //         image(this.sprites.idle,0,0,this.w, this.h);
+    //     }
+    //     pop();
+    // }
 }

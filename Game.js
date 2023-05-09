@@ -64,7 +64,7 @@ class Game {
     }
 
     show() {
-        this.objects.forEach(object => object.show())
+        this.objects.forEach(object => object.update())
     }
 
     showHitboxes() {
