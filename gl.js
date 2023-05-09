@@ -4,6 +4,9 @@ const Engine = Matter.Engine,
     Bodies = Matter.Bodies,
     Body = Matter.Body,
     Composite = Matter.Composite,
+    Composites = Matter.Composites,
+    Constraint = Matter.Constraint,
+
     Vector = Matter.Vector,
     Detector = Matter.Detector;
 
@@ -18,6 +21,8 @@ let runner;
 let player1;
 let player2;
 
+let box
+
 function setup() {
     rectMode(CENTER);
     imageMode(CENTER);
@@ -28,19 +33,29 @@ function setup() {
     
     gm.addGround(width/2, height-20, width, 40)
 
-    player1 = gm.addPlayer(120,80, 120, 120, "Aurelian")
-    player2 = gm.addPlayer(300,80, 30, 80, "Bastilan")
+    box = gm.addBox(200, 100, 50,300)
+    player1 = gm.addPlayer(300,80, 120, 120, "Aurelian")
+    player2 = gm.addPlayer(5000,80, 30, 80, "Bastilan")
 
     player2.setColor("green")
 
-    console.log(gm.players)
     gmConsole = new Console();
     gmInput = new Input();
 }
-
+let arm = false
 
 function keyPressed() {
     gmInput.addKey(keyCode)
+
+    if(keyCode === 81){
+        arm = !arm
+        if(arm) {
+            box.addArm()
+        } else {
+            box.removeArm()
+        }
+    }
+
 }
 
 function keyReleased() {
@@ -81,6 +96,7 @@ function draw() {
         keyHeld();
         gm.redraw();
         gm.show();
+        gm.showHitboxes();
         gmConsole.update();
     }
 }

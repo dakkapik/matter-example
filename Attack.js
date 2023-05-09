@@ -1,5 +1,5 @@
 class Attack {
-    constructor(width, height, xOffset, yOffset) {
+    constructor(width, height, xOffset, yOffset, options = {}) {
         this.w = width;
         this.h = height;
         this.xOffset = xOffset;
@@ -9,6 +9,8 @@ class Attack {
         this.body = Bodies.rectangle(x,y,width, height, this.options);
         this.body.label = "attack";
     }
+
+    
 
     show() {
         let pos = this.body.position;

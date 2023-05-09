@@ -1,10 +1,11 @@
 class Game {
     constructor(width, height) {
         createCanvas(width, height);
-        this.ids = {}
-        this.players = [];
-        this.groundBoxes = [];
-        this.boxes = [];
+        // this.ids = {}
+        this.objects = []
+        this.players = []
+        this.ground = []
+        this.boxes = []
     }
 
     redraw() {
@@ -12,30 +13,35 @@ class Game {
     }
 
     addPlayer(x,y,width,height, name) {
-        this.ids[name] = this.players.length;
+        // this.ids[name] = this.players.length;
         let player = new Player(x,y,width,height);
         player.setName(name);
-        this.players.push(player);
+        this.objects.push(player);
         this.updateGroundDetector();
 
         return player
     }
+
 
     // setPlayerColor(color) {
 
     // }
 
     updateGroundDetector() {
-        this.players.forEach(player => {
-            Detector.clear(player.groundDetector)
-
-            let bodyList = [player.body]
-
-            for(let i =0; i < this.groundBoxes.length; i ++) {
-                bodyList.push(this.groundBoxes[i].body);
+        this.objects.forEach(obj => {
+            if(obj.groundDetector) {
+                Detector.clear(obj.groundDetector)
+    
+                let bodyList = [obj.body]
+    
+                for(let i =0; i < this.objects.length; i ++) {
+                    if(this.objects[i].body.label === "ground"){
+                        bodyList.push(this.objects[i].body);
+                    }
+                }
+    
+                Detector.setBodies(obj.groundDetector, bodyList);
             }
-
-            Detector.setBodies(player.groundDetector, bodyList);
         })
     }
 
@@ -46,20 +52,22 @@ class Game {
 
     addGround(x,y,width,height) {
         let ground = new Ground(x,y,width,height);
-        this.groundBoxes.push(ground);
+        this.objects.push(ground);
         this.updateGroundDetector();
         return ground;
     }
 
     addBox(x,y,width,height) {
         let box = new Box(x,y,width,height);
-        this.boxes.push(box);
+        this.objects.push(box);
         return box;
     }
 
     show() {
-        this.players.forEach(player => player.show())
-        this.groundBoxes.forEach(ground => ground.show())
-        this.boxes.forEach(box => box.show())
+        this.objects.forEach(object => object.show())
+    }
+
+    showHitboxes() {
+        this.objects.forEach(obj => obj.showHitbox())
     }
 }
