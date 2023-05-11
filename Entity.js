@@ -7,6 +7,7 @@ class Entity {
             skin: false
         }
         this.fRight = true;
+        this.color = "white"
     }
 
     update() {
@@ -29,6 +30,7 @@ class Entity {
                 image(this.sprites.idle,0,0,this.w, this.h);
             }
         } else {
+            fill(this.color)
             rect(0,0,this.w,this.h);
         }
 

@@ -45,16 +45,23 @@ class Player extends Entity{
         this.body.label = "player";
 
         this.comp = Composite.create()
+        this.comp = Composite.add(this.comp, this.body)
 
         this.velMod = Body.getVelocity(this.body)
 
-        Composite.add(engine.world, this.body);
+        Composite.add(engine.world, this.comp);
 
-        //body mods
-        // Body.setCentre(this.body, Vector.create(0, this.h/3), true)
-        // Body.setDensity(this.body, 15)
-        // Body.setMass(this.body, 4)
+        this.attacks = {
+            a: new Attack(20,20,0,0, this.body, this.w, this.comp)
+        }
 
+    }
+
+    addAttack() {
+        this.attacks.a.addAttack(this.fRight)
+    }
+    rmAttack() {
+        this.attacks.a.remAttack(this.fRight)
     }
 
     setName(name) {
@@ -161,7 +168,7 @@ class Player extends Entity{
         }
 
         this.velMod = Vector.add(acc, this.velMod)
-        console.log(this.velMod)
+    
         this.running = false;
     }
 
@@ -182,6 +189,8 @@ class Player extends Entity{
         this.movement()
 
         this.show()
+
+        this.attacks.a.show()
     }
 
     // show() {

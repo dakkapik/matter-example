@@ -37,6 +37,7 @@ function setup() {
     player1 = gm.addPlayer(300,80, 120, 120, "Aurelian")
     player2 = gm.addPlayer(5000,80, 30, 80, "Bastilan")
 
+    // console.log(player2.body)
     player2.setColor("green")
 
     gmConsole = new Console();
@@ -55,11 +56,19 @@ function keyPressed() {
             box.removeArm()
         }
     }
+    if(keyCode === 69) {
+        player1.addAttack()
+        console.log("e")
+    }
 
 }
 
 function keyReleased() {
     gmInput.rmKey(keyCode)
+
+    if(keyCode === 69) {
+        player1.rmAttack()
+    }
 
     if(keyCode === 87) {
         //w
