@@ -39,7 +39,7 @@ class Player extends Entity{
         this.options = options
 
         //GAME ENGINE REQUIRED
-        this.groundDetector = Detector.create();
+        this.detector = Detector.create();
 
         this.body = Bodies.rectangle(x,y,width, height, this.options);
         this.body.label = "player";
@@ -51,17 +51,16 @@ class Player extends Entity{
 
         Composite.add(engine.world, this.comp);
 
-        this.attacks = {
-            a: new Attack(20,20,0,0, this.body, this.w, this.comp)
-        }
-
+        this.attacks = {}
     }
 
-    addAttack() {
-        this.attacks.a.addAttack(this.fRight)
-    }
-    rmAttack() {
-        this.attacks.a.remAttack(this.fRight)
+    addAttack(key) {
+        if(!this.attacks[key]) {
+            let attack = new Attack(20,20,0,0, this.body, this.w, this.comp)
+            this.attacks[key] = attack
+            gm.objects.push(attack)
+            gm.updateCollisionDetector()
+        } 
     }
 
     setName(name) {
@@ -98,16 +97,21 @@ class Player extends Entity{
         }
     } 
 
-    checkGround() {
-        let collisions = Detector.collisions(this.groundDetector)
+    checkCollision() {
+        let collisions = Detector.collisions(this.detector)
         // console.log(collisions)
         if(collisions.length === 0){
             this.grounded = false;
         } else {
             collisions.forEach(collision => {
+                // console.log(collision)
                 if(collision.bodyA.label === 'ground'){
                     this.grounded = true;
                     this.jumps = 0;
+                }
+
+                if(collision.bodyB.label === 'attack'){
+                    console.log("HIT")
                 }
             })
         }
@@ -184,13 +188,11 @@ class Player extends Entity{
         //tick timers for state update
         this.tickTimers()
         // check collision with ground collision detector
-        this.checkGround()
+        this.checkCollision()
         //increase jumpVel as long as timer lasts
         this.movement()
 
         this.show()
-
-        this.attacks.a.show()
     }
 
     // show() {

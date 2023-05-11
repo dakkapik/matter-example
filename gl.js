@@ -35,10 +35,11 @@ function setup() {
 
     box = gm.addBox(200, 100, 50,300)
     player1 = gm.addPlayer(300,80, 120, 120, "Aurelian")
-    player2 = gm.addPlayer(5000,80, 30, 80, "Bastilan")
+    player2 = gm.addPlayer(500,80, 30, 80, "Bastilan")
 
     // console.log(player2.body)
     player2.setColor("green")
+    player1.addAttack("a")
 
     gmConsole = new Console();
     gmInput = new Input();
@@ -48,17 +49,17 @@ let arm = false
 function keyPressed() {
     gmInput.addKey(keyCode)
 
-    if(keyCode === 81){
-        arm = !arm
-        if(arm) {
-            box.addArm()
-        } else {
-            box.removeArm()
-        }
-    }
+    // if(keyCode === 81){
+    //     arm = !arm
+    //     if(arm) {
+    //         box.addArm()
+    //     } else {
+    //         box.removeArm()
+    //     }
+    // }
     if(keyCode === 69) {
-        player1.addAttack()
-        console.log("e")
+        // player1.addAttack()
+        // console.log("e")
     }
 
 }
@@ -67,7 +68,7 @@ function keyReleased() {
     gmInput.rmKey(keyCode)
 
     if(keyCode === 69) {
-        player1.rmAttack()
+        // player1.rmAttack()
     }
 
     if(keyCode === 87) {

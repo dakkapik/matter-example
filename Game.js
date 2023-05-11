@@ -6,6 +6,9 @@ class Game {
         this.players = []
         this.ground = []
         this.boxes = []
+
+        // this.hitDetector = Detector.create();
+
     }
 
     redraw() {
@@ -17,43 +20,45 @@ class Game {
         let player = new Player(x,y,width,height);
         player.setName(name);
         this.objects.push(player);
-        this.updateGroundDetector();
+        this.players.push(player);
+        this.updateCollisionDetector();
 
         return player
     }
 
 
-    // setPlayerColor(color) {
+    // setPlayerColor(color) { 
 
     // }
 
-    updateGroundDetector() {
-        this.objects.forEach(obj => {
-            if(obj.groundDetector) {
-                Detector.clear(obj.groundDetector)
-    
-                let bodyList = [obj.body]
-    
-                for(let i =0; i < this.objects.length; i ++) {
-                    if(this.objects[i].body.label === "ground"){
-                        bodyList.push(this.objects[i].body);
-                    }
+    updateCollisionDetector() {
+        this.players.forEach(player => {
+            Detector.clear(player.detector)
+
+            let bodyList = [player.body]
+
+            for(let i = 0; i < this.objects.length; i++ ) {
+                if(this.objects[i].body.label === "ground") {
+                    bodyList.push(this.objects[i].body);
                 }
-    
-                Detector.setBodies(obj.groundDetector, bodyList);
+
+                if(
+                    this.objects[i].constructor.name === "Attack" && 
+                    this.objects[i].playerId !== player.body.id
+                    ) {
+                    bodyList.push(this.objects[i].attBody.l)
+                    bodyList.push(this.objects[i].attBody.r)
+                }
             }
+
+            Detector.setBodies(player.detector, bodyList);
         })
     }
-
-    // getPlayerAction(id, action) {
-    //     let player = this.players[this.ids[id]];
-    //     return player[action];
-    // } 
 
     addGround(x,y,width,height) {
         let ground = new Ground(x,y,width,height);
         this.objects.push(ground);
-        this.updateGroundDetector();
+        this.updateCollisionDetector();
         return ground;
     }
 
