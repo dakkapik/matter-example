@@ -1,5 +1,6 @@
-class Ground {
+class Ground extends Entity{
     constructor (x,y, width, height, options={}) {
+        super()
         this.options = options
         this.w = width;
         this.h = height;
