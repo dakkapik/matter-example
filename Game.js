@@ -6,7 +6,7 @@ class Game {
         this.players = []
         this.ground = []
         this.boxes = []
-
+        this.attacks = []
         // this.hitDetector = Detector.create();
 
     }
@@ -26,10 +26,17 @@ class Game {
         return player
     }
 
+    addAttackDetector(attack) {
+        this.attacks.push(attack)
+        this.updateCollisionDetector()
+    }
 
-    // setPlayerColor(color) { 
-
-    // }
+    removeAttackDetector (id) {
+        this.attacks = this.attacks.filter(attack => {
+            attack.attBody.id !== id
+        })
+        this.updateCollisionDetector()
+    }
 
     updateCollisionDetector() {
         this.players.forEach(player => {
@@ -41,13 +48,11 @@ class Game {
                 if(this.objects[i].body.label === "ground") {
                     bodyList.push(this.objects[i].body);
                 }
+            }
 
-                if(
-                    this.objects[i].constructor.name === "Attack" && 
-                    this.objects[i].playerId !== player.body.id
-                    ) {
-                    bodyList.push(this.objects[i].attBody.l)
-                    bodyList.push(this.objects[i].attBody.r)
+            for(let i =0; i < this.attacks.length; i++ ) {
+                if(this.attacks[i].playerId !== player.body.id){
+                    bodyList.push(this.attacks[i].attBody)
                 }
             }
 

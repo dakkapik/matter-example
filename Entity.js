@@ -8,6 +8,7 @@ class Entity {
         }
         this.fRight = true;
         this.color = "white"
+        
     }
 
     update() {

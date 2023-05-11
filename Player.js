@@ -9,20 +9,22 @@ class Player extends Entity{
         this.maxJumps = 1;
         this.airImpulse = 1; 
         this.runSpeed = 1.2;
-        this.accVect = Vector.create(this.runSpeed,0);
+        this.accVect = Vector.create(this.runSpeed, 0);
         this.topSpeed = 8;
         this.jumpForce = -0.3
+        this.invulFrames = 25;
+        this.health = 100
 
         //timers
-        this.timers = [];
-        this.timerKeys = {};
-        this.addTracker("jump-duration", 3);
-        this.addTracker("jump-cooldown", 6);
-
+        this.timer = new Timer();
+        
         //counters
         this.jumps = 0;
-
+        
         //flags
+        this.hitInvul = false;
+        this.jumpReady = true;
+        this.attackReady = true;
         this.grounded = false;
         this.running = false;
         this.fRight = true;
@@ -37,6 +39,8 @@ class Player extends Entity{
 
         //option mods
         this.options = options
+        this.options.friction = 0.05
+        this.options.mass = 12
 
         //GAME ENGINE REQUIRED
         this.detector = Detector.create();
@@ -56,11 +60,34 @@ class Player extends Entity{
 
     addAttack(key) {
         if(!this.attacks[key]) {
-            let attack = new Attack(20,20,0,0, this.body, this.w, this.comp)
+            let profile = new AttackProfile(10, 0.2, 10, 4)
+            let attack = new Attack(20,20,0,0, this, profile)
             this.attacks[key] = attack
             gm.objects.push(attack)
-            gm.updateCollisionDetector()
         } 
+    }
+
+    engageAttack (key) {
+        if(this.attackReady){
+            this.attacks[key].active = true;
+
+            let attack = this.attacks[key]
+            this.attackReady = false;
+
+            gm.addAttackDetector(this.attacks[key])
+            this.timer.addTimer(attack.attBody.profile.duration, () => {
+                
+                this.stopAttack(key)
+                this.timer.addTimer(attack.attBody.profile.cooldown, () => {
+                    this.attackReady = true
+                })
+            })
+        }
+    }
+
+    stopAttack (key) {
+        this.attacks[key].active = false;
+        gm.removeAttackDetector(this.attacks[key].attBody.id)
     }
 
     setName(name) {
@@ -71,31 +98,6 @@ class Player extends Entity{
         this.color = color;
     }
 
-    addTracker(key, abs) {
-        this.timerKeys[key] = [abs, this.timers.length]
-        this.timers.push(0)
-    }
-
-    tickTimers() {
-        for(let i = 0; i < this.timers.length; i++) {
-            if(this.timers[i] > 0) {
-                this.timers[i] --;
-            }
-        }
-    }
-
-    startTimer(key) {
-        console.log()
-        this.timers[this.timerKeys[key][1]] = this.timerKeys[key][0]
-    }
-
-    timerFinished(key) {
-        if(this.timers[this.timerKeys[key][1]] === 0) {
-            return true;
-        } else {
-            return false;
-        }
-    } 
 
     checkCollision() {
         let collisions = Detector.collisions(this.detector)
@@ -110,18 +112,36 @@ class Player extends Entity{
                     this.jumps = 0;
                 }
 
-                if(collision.bodyB.label === 'attack'){
-                    console.log("HIT")
+                if(
+                    collision.bodyB.label === 'attack'
+                ){
+                    if (!this.hitInvul) {
+                        this.hitInvul = true
+                        this.timer.addTimer(this.invulFrames, ()=> {
+                            this.hitInvul = false
+                        })
+                        this.damage(collision.bodyB)
+                    }
                 }
             })
         }
     }
 
-    updateJump() {
-        if(!this.timerFinished('jump-duration')) {
-            let jumpForce = Vector.create(0,this.jumpForce);
-            Body.applyForce(this.body, this.body.position, jumpForce);
-        }   
+    damage(attack) {
+        this.health - attack.profile.damage
+
+        let x = this.body.position.x - attack.position.x
+        let y = this.body.position.y - attack.position.y
+        let v = Vector.create(x, y)
+        let nv = Vector.normalise(v)
+        let force = Vector.mult(nv, attack.profile.knockback)
+        Body.applyForce(this.body, attack.position, force)
+        // console.log(profile)
+    }
+
+    jumpExec() {   
+        let jumpForce = Vector.create(0,this.jumpForce);
+        Body.applyForce(this.body, this.body.position, jumpForce);
     }
 
     jump() {
@@ -130,18 +150,23 @@ class Player extends Entity{
             return;
         }
 
-        if(this.timerFinished('jump-cooldown')){
-            if(this.jumps < this.maxJumps) {
-                this.jumpImpulse();
-                return
-            }
+        if(this.jumpReady && this.jumps < this.maxJumps){
+            this.jumpImpulse();
+            return
         }
     }
 
     jumpImpulse() {
         this.jumps ++;
-        this.startTimer("jump-cooldown");
-        this.startTimer("jump-duration");
+        this.jumpReady = false
+
+        this.timer.addTimer(1, ()=> {
+
+            this.timer.addTimer(20, ()=> {
+                this.jumpReady = true
+            })
+
+        }, "jumpExec", this)
     }
 
     moveRight() {
@@ -178,38 +203,23 @@ class Player extends Entity{
 
     movement() {
         this.velMod = Body.getVelocity(this.body)
-        this.updateJump()
+        // this.updateJump()
         this.updateMove()
         Body.setVelocity(this.body, this.velMod)
     }
 
     update() {
-        this.body.angle = 0;
-        //tick timers for state update
-        this.tickTimers()
+        // to prevent player from switching angle
+        Body.setAngle(this.body, 0)
+        // timers must tick
+        this.timer.tick()
+        // tick timers for state update
+        // this.tickTimers()
         // check collision with ground collision detector
         this.checkCollision()
-        //increase jumpVel as long as timer lasts
+        // increase jumpVel as long as timer lasts
         this.movement()
 
         this.show()
     }
-
-    // show() {
-    //     //state update bound to game loop
-    //     let pos = this.body.position;
-    //     let angle = this.body.angle;
-    //     push();
-    //     // fill(this.color)
-    //     translate(pos.x, pos.y - this.h/3);
-    //     rotate(angle);
-    //     rect(0,0,this.w,this.h);
-    //     if(this.fRight) {
-    //         image(this.sprites.idle,0,0,this.w, this.h);
-    //     } else {
-    //         scale(-1,1)
-    //         image(this.sprites.idle,0,0,this.w, this.h);
-    //     }
-    //     pop();
-    // }
 }

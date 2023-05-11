@@ -1,22 +1,25 @@
 class Attack {
-    constructor(width, height, offSetX, offSetY, body, bodyW, comp, options = {}) {
+    constructor(width, height, offSetX, offSetY, parent, profile, options = {}) {
 
+        this.options = options
+        this.options.isSensor = true
+        this.options.label = "attack"
 
-        this.options = {
-            isSensor : true,
-            label: "attack"
-        }
-        this.playerId = body.id;
+        this.parent = parent;
+
+        // this.profile = profile;
+        this.active = false;
+        this.playerId = parent.body.id;
         this.width = width;
         this.height = height;
         this.offSetX = offSetX;
         this.offSetY = offSetY;
-        this.body = body;
-        this.bodyW = bodyW;
-        this.comp = comp;
-        this.color = "yellow"
+        this.body = parent.body;
+        this.bodyW = parent.w;
+        this.comp = parent.comp;
 
         this.attBody = this.createAttack()
+        this.attBody.profile = profile
     }
 
     createAttack() {
@@ -25,7 +28,7 @@ class Attack {
         // console.log(this.bodyW)
         // console.log(centre.x - this.bodyW/2 - this.width/2)
 
-        let rightA = Bodies.rectangle(
+        let att = Bodies.rectangle(
             centre.x + this.bodyW/2 + this.width/2, 
             centre.y, 
             this.width, 
@@ -34,51 +37,45 @@ class Attack {
             );
 
 
-        let leftA = Bodies.rectangle(
-            centre.x - this.bodyW/2 - this.width/2, 
-            centre.y, 
-            this.width, 
-            this.height, 
-            this.options
-            );
-
-        Composite.add(this.comp, [leftA, rightA])
-        return {r: rightA, l: leftA}
+        // let leftA = Bodies.rectangle(
+        //     centre.x - this.bodyW/2 - this.width/2, 
+        //     centre.y, 
+        //     this.width, 
+        //     this.height, 
+        //     this.options
+        //     );
+        
+        Composite.add(this.comp, [att])
+        return att
     }
 
     update() {        
-        this.attBody.r.angle = 0
-        this.attBody.l.angle = 0
+        Body.setAngle(this.attBody, 0)
 
         const centre = this.body.position
-        let posR = {...centre}
-        let posL = {...centre}
+        let pos = {...centre}
         
-        posR.x = centre.x + this.bodyW/2 + this.width/2
-        posL.x = centre.x - this.bodyW/2 - this.width/2
+        if(this.parent.fRight){
+            pos.x = centre.x + this.bodyW/2 + this.width/2
+        } else {
+            pos.x = centre.x - this.bodyW/2 - this.width/2
+        }
         // add offset
-
-        this.attBody.r.position = posR
-        this.attBody.l.position = posL
-
+        Body.setPosition(this.attBody, pos)
         this.show()
     }
 
     show() {
-        let pos = this.attBody.r.position;
-        let angle = this.attBody.r.angle;
-        push();
-        fill("red");
-        translate(pos.x, pos.y);
-        rotate(angle);
-        
-        rect(0,0,this.width, this.height);
-        pop();
+        let pos = this.attBody.position
+        let angle = this.attBody.angle
 
-        pos = this.attBody.l.position;
-        angle = this.attBody.l.angle;
         push();
-        fill("blue");
+        // console.log(this.active)
+        if(this.active) {
+            fill("red")
+        } else {
+            fill("yellow")
+        }
         translate(pos.x, pos.y);
         rotate(angle);
         

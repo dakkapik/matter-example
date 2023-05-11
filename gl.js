@@ -21,12 +21,12 @@ let runner;
 let player1;
 let player2;
 
-let box
+let box;
 
 function setup() {
     rectMode(CENTER);
     imageMode(CENTER);
-    gm = new Game(700, 600);
+    gm = new Game(10000, 600);
     engine = Engine.create();
     runner = Runner.create();
     Runner.run(runner, engine);
@@ -39,7 +39,10 @@ function setup() {
 
     // console.log(player2.body)
     player2.setColor("green")
-    player1.addAttack("a")
+    player1.addAttack("q")
+
+    // player1.engageAttack("q")
+    // player1.stopAttack("q")
 
     gmConsole = new Console();
     gmInput = new Input();
@@ -49,14 +52,10 @@ let arm = false
 function keyPressed() {
     gmInput.addKey(keyCode)
 
-    // if(keyCode === 81){
-    //     arm = !arm
-    //     if(arm) {
-    //         box.addArm()
-    //     } else {
-    //         box.removeArm()
-    //     }
-    // }
+    if(keyCode === 81) {
+       
+    }
+
     if(keyCode === 69) {
         // player1.addAttack()
         // console.log("e")
@@ -67,8 +66,8 @@ function keyPressed() {
 function keyReleased() {
     gmInput.rmKey(keyCode)
 
-    if(keyCode === 69) {
-        // player1.rmAttack()
+    if(keyCode === 81) {
+        player1.engageAttack("q")
     }
 
     if(keyCode === 87) {
@@ -95,9 +94,14 @@ function keyHeld() {
         player1.moveRight();
     }
 
-    if(queue.has(81)){
-        // q
-        // player1.moveRight();
+    if(queue.has(37)){
+        // arrow left
+        player2.moveLeft()
+    }
+
+    if(queue.has(39)){
+        // arrow right
+        player2.moveRight()
     }
 }
 

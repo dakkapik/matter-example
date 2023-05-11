@@ -4,9 +4,8 @@ class Timer {
         this.timers = []
     }
 
-    addTimer (time, callback) {    
-        this.timers.push({time: time + this.counter, callback})
-        console.log(this.timers)
+    addTimer (time, callback, fnName = "a", obj = {"a": ()=>{}}) {
+        this.timers.push({time: time + this.counter, callback, fnName, obj})
     }
 
     tick() {
@@ -14,6 +13,8 @@ class Timer {
             if(this.counter > timer.time){
                 timer.callback()
                 this.timers.splice(index, 1)
+            } else {
+                timer.obj[timer.fnName]()
             }
         })
         this.counter ++
