@@ -8,14 +8,12 @@ const Engine = Matter.Engine,
     Constraint = Matter.Constraint,
 
     Vector = Matter.Vector,
-    Detector = Matter.Detector;
+    Detector = Matter.Detector,
+    Query = Matter.Query;
 
-let gmInput;
-let gmConsole;
 let gm;
 
 let engine;
-let ground;
 let runner;
 
 let player1;
@@ -24,16 +22,26 @@ let player2;
 let box;
 
 function setup() {
+    gm = new Game(1800, 1000, "AnnabellaMoerbeck");
     rectMode(CENTER);
     imageMode(CENTER);
-    gm = new Game(10000, 600);
     engine = Engine.create();
     runner = Runner.create();
     Runner.run(runner, engine);
-    
-    gm.addGround(width/2, height-20, width, 40)
 
-    box = gm.addBox(200, 100, 50,300)
+    // gm.addStage(gm.width, gm.height, "AnnabellaMoerbeck")
+
+    gm.setBackground( loadImage("assets/background/AnnabellaMoerbeck.png") )
+
+    let options = {skin: "IsabelaRivera-t"}
+
+    let ground1 = gm.addGround(250, 400, 350, 50, options)
+    let ground2 = gm.addGround(590, 800, 420, 50)
+
+    gm.addGround(900, 550, 400, 50)
+    gm.addGround(1200, 900,600, 40)
+    gm.addGround(1750, 520, 150, 20)
+
     player1 = gm.addPlayer(300,80, 120, 120, "Aurelian")
     player2 = gm.addPlayer(500,80, 30, 80, "Bastilan")
 
@@ -44,13 +52,13 @@ function setup() {
     // player1.engageAttack("q")
     // player1.stopAttack("q")
 
-    gmConsole = new Console();
-    gmInput = new Input();
+    // player2.setSprite('DiegoShea')
+    player2.setSprite('ShannaRose')
+    gm.console.addTracker("x pos","x", player1.body.position)
 }
-let arm = false
 
 function keyPressed() {
-    gmInput.addKey(keyCode)
+    gm.addKey(keyCode)
 
     if(keyCode === 81) {
        
@@ -64,7 +72,7 @@ function keyPressed() {
 }
 
 function keyReleased() {
-    gmInput.rmKey(keyCode)
+    gm.rmKey(keyCode)
 
     if(keyCode === 81) {
         player1.engageAttack("q")
@@ -82,7 +90,7 @@ function keyReleased() {
 }
 
 function keyHeld() {
-    queue = gmInput.inputQueue
+    queue = gm.inputQueue
 
     if(queue.has(65)){
         // a
@@ -106,10 +114,8 @@ function keyHeld() {
 }
 
 function draw() {
-    if(gmInput.values.play) {
-        keyHeld();
-        gm.redraw();
-        gm.show();
-        gmConsole.update();
-    }
+    keyHeld();
+    mouseHeld();
+    gm.redraw();
+    gm.show();
 }

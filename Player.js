@@ -34,7 +34,7 @@ class Player extends Entity{
         this.h = height;
         this.settings.skin = true;
         this.sprites = {
-            idle: loadImage('char/AnnabellaMoerbeck.png')
+            idle: loadImage('assets/char/AnnabellaMoerbeck.png')
         }
 
         //option mods
@@ -96,6 +96,10 @@ class Player extends Entity{
 
     setColor(color) {
         this.color = color;
+    }
+
+    setSprite(name) {
+        this.sprites.idle = loadImage(`assets/char/${name}.png`);
     }
 
 

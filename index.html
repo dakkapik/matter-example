@@ -1,24 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <style>
-        html,body > div {
-            display: flex;
-        }
-        #console > div > p{
-            margin:0;
-            border-style: solid;
-            border-width: 2px;
-            padding: 0px 4px;
-        }
-    </style>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>game</title>
+    <!-- <title>game</title> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/addons/p5.sound.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
     <script src="lib/matter.js"></script>
-    <script src="lib/p5.js"></script>
+    <!-- <script src="lib/p5.js"></script> -->
     <script src="Input.js"></script>
+    <script src="Editor.js"></script>
     <script src="Console.js"></script>
     <script src="Timer.js"></script>
     <script src="Entity.js"></script>
@@ -27,20 +20,26 @@
     <script src="Attack.js"></script>
     <script src="AttackProfile.js"></script>
     <script src="Player.js"></script>
+    <script src="Stage.js"></script>
     <script src="Game.js"></script>
+
     <script src="gl.js"></script>
 </head>
 <body>
     <div>
-        <div>
-            <main>
-            </main>
-            <div>
-              <button id="play-gm">stop</button>
-              <button>another thing</button>
+        <a id="downloadAnchorElem" style="display:none"></a>
+        <main></main>
+        <button id="bt-console">hide hud</button>
+        <div id="console">
+            <button id="bt-game">stop game</button>
+            <button id="bt-stage">edit stage</button>
+            <div id="edit-div">
+                <button id="bt-edit-position">edit position</button>
+                <button id="bt-edit-width">edit width</button>
+                <button id="bt-edit-height">edit height</button>
+                <button id="bt-save-stage">save stage</button>
             </div>
         </div>
-        <div id="console"></div>
     </div>
 </body>
 </html>

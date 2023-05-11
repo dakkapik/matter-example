@@ -1,22 +1,64 @@
-class Game {
-    constructor(width, height) {
+class Game extends Editor{
+    constructor(width, height, name) {
+        super();
         createCanvas(width, height);
-        // this.ids = {}
+        this.width = width;
+        this.height = height;
+
         this.objects = []
         this.players = []
         this.ground = []
         this.boxes = []
         this.attacks = []
-        // this.hitDetector = Detector.create();
+
+        this.background = false;
+    }
+
+    changeToStage(){
 
     }
 
+    saveStage( ) {
+        if(this.stages[this.name]){
+            console.log("STAGE WITH THIS NAME ALREADY EXISTS")
+        } else {
+            this.stageName = this.name;
+            this.stages[this.name] = new Stage();
+            this.stages[this.name].saveStage(
+                this.name,
+                this.width,
+                this.height,
+                this.background,
+                this.players,
+                this.groundBoxes,
+                this.boxes
+            )
+        }
+    }
+
+    setBackground(bgAnimation) {
+        // console.log(bgAnimation[0])
+        // array of loaded images for bg animation
+        this.background = bgAnimation
+    }
+
+
     redraw() {
-        background(220)
+        this.iteration ++
+        push()
+        imageMode(CORNERS)
+        if(this.background) {
+            image(
+                this.background 
+                ,0,0, this.width, this.height)
+        } else {
+            background(220)
+        }
+        pop()
+        
     }
 
     addPlayer(x,y,width,height, name) {
-        // this.ids[name] = this.players.length;
         let player = new Player(x,y,width,height);
         player.setName(name);
         this.objects.push(player);
@@ -60,8 +102,8 @@ class Game {
         })
     }
 
-    addGround(x,y,width,height) {
-        let ground = new Ground(x,y,width,height);
+    addGround(x,y,width,height, options) {
+        let ground = new Ground(x,y,width,height, options);
         this.objects.push(ground);
         this.updateCollisionDetector();
         return ground;
@@ -75,6 +117,7 @@ class Game {
 
     show() {
         this.objects.forEach(object => object.update())
+        if(this.values.console) this.console.update();
     }
 
     showHitboxes() {
