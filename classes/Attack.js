@@ -1,6 +1,6 @@
 class Attack {
     constructor(width, height, offSetX, offSetY, parent, profile, options = {}) {
-
+        // console.log(profile)
         this.options = options
         this.options.isSensor = true
         this.options.label = "attack"
@@ -29,7 +29,7 @@ class Attack {
         // console.log(centre.x - this.bodyW/2 - this.width/2)
 
         let att = Bodies.rectangle(
-            centre.x + this.bodyW/2 + this.width/2, 
+            centre.x + this.offSetX,
             centre.y, 
             this.width, 
             this.height, 
@@ -56,30 +56,39 @@ class Attack {
         let pos = {...centre}
         
         if(this.parent.fRight){
-            pos.x = centre.x + this.bodyW/2 + this.width/2
+            pos.x = centre.x +this.offSetX
         } else {
-            pos.x = centre.x - this.bodyW/2 - this.width/2
+            pos.x = centre.x -this.offSetY
         }
+
+        pos.y = centre.y + this.offSetY
         // add offset
         Body.setPosition(this.attBody, pos)
         this.show()
     }
 
     show() {
-        let pos = this.attBody.position
-        let angle = this.attBody.angle
-
-        push();
-        // console.log(this.active)
-        if(this.active) {
-            fill("red")
-        } else {
-            fill("yellow")
+        if(
+            true
+            // this.active
+            // && this.parent.settings.show_hitbox
+            ){
+            let pos = this.attBody.position
+            let angle = this.attBody.angle
+    
+            
+            push();
+            // console.log(this.active)
+            if(this.active) {
+                fill("rgba(255, 41, 41, 0.43)")
+            } else {
+                fill("rgba(253, 255, 41, 0.43)")
+            }
+            translate(pos.x, pos.y);
+            rotate(angle);
+            
+            rect(0,0,this.width, this.height);
+            pop();
         }
-        translate(pos.x, pos.y);
-        rotate(angle);
-        
-        rect(0,0,this.width, this.height);
-        pop();
     }
 }

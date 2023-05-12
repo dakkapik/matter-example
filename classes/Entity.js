@@ -8,7 +8,6 @@ class Entity {
         }
         this.fRight = true;
         this.color = "white"
-        
     }
 
     update() {
@@ -25,10 +24,11 @@ class Entity {
         
         if(this.settings.skin){
             if(this.fRight) {
-                image(this.sprites.idle,0,0,this.w, this.h);
+                // console.log(this.sprites['i'])
+                image(this.sprites[this.spriteState],0,0,this.w, this.h);
             } else {
                 scale(-1,1)
-                image(this.sprites.idle,0,0,this.w, this.h);
+                image(this.sprites[this.spriteState],0,0,this.w, this.h);
             }
         } else {
             fill(this.color)

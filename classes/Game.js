@@ -63,9 +63,9 @@ class Game extends Editor{
         
     }
 
-    addPlayer(x,y,width,height, name) {
-        let player = new Player(x,y,width,height);
-        player.setName(name);
+    addPlayer(x,y,width,height, name, options) {
+        let player = new Player(x,y,width,height, name, options);
+        // player.setName(name);
         this.objects.push(player);
         this.players.push(player);
         this.updateCollisionDetector();

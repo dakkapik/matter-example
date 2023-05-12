@@ -1,11 +1,12 @@
 class Player extends Entity{
-    constructor (x,y, width, height,name, options={}) {
-        super()
+    constructor (x,y, width, height,name,p1, options={}) {
+        super( )
         //TEST SETTINGS 
-        this.settings.show_hitbox = true;
+        // this.settings.show_hitbox = true;
 
         //player properties
         this.name = name;
+        this.p1 = p1;
         this.maxJumps = 1;
         this.airImpulse = 1; 
         this.runSpeed = 1.2;
@@ -34,8 +35,10 @@ class Player extends Entity{
         this.h = height;
         this.settings.skin = true;
         this.sprites = {
-            idle: loadImage('assets/char/AnnabellaMoerbeck.png')
+            i: loadImage(`assets/char/${name}/i.png`)
         }
+        this.loadSprites()
+        this.spriteState = 'i'
 
         //option mods
         this.options = options
@@ -55,29 +58,90 @@ class Player extends Entity{
 
         Composite.add(engine.world, this.comp);
 
-        this.attacks = {}
+        this.attacks = {
+            // 'e':,
+            // 'r':,
+            // 'f':,
+        }
+
+        this.keyMap1 ={
+            '69':'p',
+            '82':'k',
+            '70':'b',
+        }
+        this.keyMap2 = {
+            '188':'p',
+            '190':'k',
+            '191':'b',
+        }
     }
 
-    addAttack(key, spriteName) {
-        if(!this.attacks[key]) {
-            let profile = new AttackProfile(10, 0.2, 10, 4)
-            let attack = new Attack(20,20,0,0, this, profile)
-            this.attacks[key] = attack
+    loadSprites() {
+        loadImage(`assets/char/${this.name}/i.png`, 
+            (img) => {
+                // console.log(img)
+                this.sprites['i'] = img
+                this.spriteState = 'i'
+                // console.log(this.sprites['i'])
+            },
+            ()=> {console.log("COULD NOT LOAD THIS CHARACTER IDLE")}
+        )
+
+        loadImage(`assets/char/${this.name}/p.png`, 
+            (img) => {
+                this.sprites['p'] = img
+            },
+            ()=> {console.log("COULD NOT LOAD THIS CHARACTER PUNCH")}
+        )
+
+        loadImage(`assets/char/${this.name}/k.png`, 
+            (img) => {
+                this.sprites['k'] = img
+            },
+            ()=> {console.log("COULD NOT LOAD THIS CHARACTER KICK")}
+        )
+
+        loadImage(`assets/char/${this.name}/b.png`, 
+            (img) => {
+                this.sprites['b'] = img
+            },
+            ()=> {console.log("COULD NOT LOAD THIS CHARACTER BLOCK")}
+        )
+         
+    }
+
+
+
+    addAttack( id, attack) {
+        if(!this.attacks[id]) {
+            // let profile = new AttackProfile(10, 0.2, 10, 4)
+            // let attack = new Attack(20,20,0,0, this, profile)
+
+            this.attacks[id] = attack
             gm.objects.push(attack)
         } 
     }
 
     engageAttack (key) {
         if(this.attackReady){
-            this.attacks[key].active = true;
+            let keyMapped
+            if(this.p1){
+                keyMapped = this.keyMap1[key]
+            } else {
+                keyMapped = this.keyMap2[key]
+            }
+            
+            this.spriteState = keyMapped
+            this.attacks[keyMapped].active = true
 
-            let attack = this.attacks[key]
+            let attack = this.attacks[keyMapped]
             this.attackReady = false;
 
-            gm.addAttackDetector(this.attacks[key])
+            gm.addAttackDetector(this.attacks[keyMapped])
             this.timer.addTimer(attack.attBody.profile.duration, () => {
                 
-                this.stopAttack(key)
+                this.stopAttack(keyMapped)
+                this.spriteState = 'i'
                 this.timer.addTimer(attack.attBody.profile.cooldown, () => {
                     this.attackReady = true
                 })
@@ -110,13 +174,16 @@ class Player extends Entity{
             this.grounded = false;
         } else {
             collisions.forEach(collision => {
-                // console.log(collision)
+                
                 if(collision.bodyA.label === 'ground'){
                     this.grounded = true;
                     this.jumps = 0;
+                }else {
+                    // console.log(collision.bodyA)
                 }
 
                 if(
+                    collision.bodyA.label === 'attack'||
                     collision.bodyB.label === 'attack'
                 ){
                     if (!this.hitInvul) {
@@ -124,7 +191,11 @@ class Player extends Entity{
                         this.timer.addTimer(this.invulFrames, ()=> {
                             this.hitInvul = false
                         })
-                        this.damage(collision.bodyB)
+                        if(collision.bodyA.label === 'attack'){
+                            this.damage(collision.bodyA)
+                        } else {
+                            this.damage(collision.bodyB)
+                        }
                     }
                 }
             })
@@ -132,6 +203,8 @@ class Player extends Entity{
     }
 
     damage(attack) {
+        console.log("THIS")
+        console.log(attack)
         this.health - attack.profile.damage
 
         let x = this.body.position.x - attack.position.x
