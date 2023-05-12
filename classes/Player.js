@@ -1,11 +1,11 @@
 class Player extends Entity{
-    constructor (x,y, width, height, options={}) {
+    constructor (x,y, width, height,name, options={}) {
         super()
         //TEST SETTINGS 
         this.settings.show_hitbox = true;
 
         //player properties
-        this.name = 'player';
+        this.name = name;
         this.maxJumps = 1;
         this.airImpulse = 1; 
         this.runSpeed = 1.2;
@@ -58,7 +58,7 @@ class Player extends Entity{
         this.attacks = {}
     }
 
-    addAttack(key) {
+    addAttack(key, spriteName) {
         if(!this.attacks[key]) {
             let profile = new AttackProfile(10, 0.2, 10, 4)
             let attack = new Attack(20,20,0,0, this, profile)

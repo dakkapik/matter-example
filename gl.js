@@ -33,6 +33,11 @@ function setup() {
     // AnnabellaMoerbeck()
     player1 = charAdrianPena()
     player2 = charEthanWansakul()
+
+
+    charLoad.forEach((char, index)=> {
+        console.log(char)
+    })
     // player1 = charAnnabellaMoerbeck()
     // player1 = charCarlosLopez()
     // player1 = charCarlyMclnerney()
