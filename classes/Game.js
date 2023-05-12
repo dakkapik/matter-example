@@ -2,6 +2,7 @@ class Game extends Editor{
     constructor(width, height, name) {
         super();
         createCanvas(width, height);
+        this.name = name;
         this.width = width;
         this.height = height;
 
@@ -11,7 +12,11 @@ class Game extends Editor{
         this.boxes = []
         this.attacks = []
 
-        this.background = false;
+        if(name ) {
+            this.background =  loadImage(`assets/background/${name}.png`)
+        } else {
+            this.background = false;
+        }
     }
 
     changeToStage(){

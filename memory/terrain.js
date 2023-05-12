@@ -1,15 +1,11 @@
 const lvlAnnabellaMoerbeck = ()=> {
-
     gm = new Game(1800, 1000, "AnnabellaMoerbeck");
     rectMode(CENTER);
     imageMode(CENTER);
+
     engine = Engine.create();
     runner = Runner.create();
     Runner.run(runner, engine);
-
-    // gm.addStage(gm.width, gm.height, "AnnabellaMoerbeck")
-
-    gm.setBackground( loadImage("assets/background/AnnabellaMoerbeck.png") )
 
     let options = {skin: "IsabelaRivera-t"}
 
@@ -39,11 +35,7 @@ const lvlDaniellaRodrigues = () => {
     runner = Runner.create();
     Runner.run(runner, engine);
 
-    // gm.addStage(gm.width, gm.height, "AnnabellaMoerbeck")
-
-    gm.setBackground( loadImage("assets/background/DaniellaRodrigues.png") )
-
-    let options = {skin: "IsabelaRivera-t"}
+    let options = {skin: "MichaelBalius-t"}
 
     let ground1 = gm.addGround(250, 400, 350, 50, options)
     let ground2 = gm.addGround(590, 800, 420, 50)
@@ -59,3 +51,27 @@ const lvlDaniellaRodrigues = () => {
     player2.setSprite('ShannaRose')
 }
 
+const lvlDaniellaRodriguez1 = () => {
+
+}
+const lvlEmilySmith = () => {
+
+}
+const lvlMatiasLatorre = () => {
+
+}
+const lvlMaximusGarcia = () => {
+
+}
+const lvlNoahArevalo = () => {
+
+}
+const lvlPaulPascatore = () => {
+
+}
+const lvlRoberDiaz = () => {
+
+}
+const lvlTateLarsen = () => {
+
+}
