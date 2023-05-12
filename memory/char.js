@@ -1,5 +1,5 @@
 const charAdrianPena = () => {
-    let player = gm.addPlayer(500,80, 30, 80, "Bastilan")
+    let player = gm.addPlayer(300,80, 70, 100, "AdrianPena")
 
     player.setSprite('AdrianPena')
     player.addAttack("q")
@@ -8,7 +8,7 @@ const charAdrianPena = () => {
 }
 
 const charAnnabellaMoerbeck = () => {
-    let player = gm.addPlayer(500,80, 30, 80, "Bastilan")
+    let player = gm.addPlayer(500,80, 30, 80, "AnnabellaMoerbeck")
 
     player.setSprite('AAnnabellaMoerbeck')
     player.addAttack("q")
@@ -17,7 +17,7 @@ const charAnnabellaMoerbeck = () => {
 }
 
 const charCarlosLopez = () => {
-    let player = gm.addPlayer(500,80, 30, 80, "Bastilan")
+    let player = gm.addPlayer(500,80, 30, 80, "CarlosLopez")
 
     player.setSprite('CarlosLopez')
     player.addAttack("q")
@@ -26,7 +26,7 @@ const charCarlosLopez = () => {
 }
 
 const charCarlyMcInerney = () => {
-    let player = gm.addPlayer(500,80, 30, 80, "Bastilan")
+    let player = gm.addPlayer(500,80, 30, 80, "CarlyMcInerney")
 
     player.setSprite('CarlyMcInerney')
     player.addAttack("q")
@@ -36,7 +36,7 @@ const charCarlyMcInerney = () => {
 
 
 const charDaniellaRodriguez = () => {
-    let player = gm.addPlayer(500,80, 30, 80, "Bastilan")
+    let player = gm.addPlayer(500,80, 30, 80, "DaniellaRodriguez")
 
     player.setSprite('DaniellaRodriguez')
     player.addAttack("q")
@@ -45,7 +45,7 @@ const charDaniellaRodriguez = () => {
 }
 
 const charDanielShashaty = () => {
-    let player = gm.addPlayer(500,80, 30, 80, "Bastilan")
+    let player = gm.addPlayer(500,80, 30, 80, "DanielShashaty")
 
     player.setSprite('ADanielShashaty')
     player.addAttack("q")
@@ -54,7 +54,7 @@ const charDanielShashaty = () => {
 }
 
 const charDiegoShea = () => {
-    let player = gm.addPlayer(500,80, 30, 80, "Bastilan")
+    let player = gm.addPlayer(500,80, 30, 80, "DiegoShea")
 
     player.setSprite('DiegoShea')
     player.addAttack("q")
@@ -63,7 +63,7 @@ const charDiegoShea = () => {
 }
 
 const charEmilioCorrales = () => {
-    let player = gm.addPlayer(500,80, 30, 80, "Bastilan")
+    let player = gm.addPlayer(500,80, 30, 80, "EmilioCorrales")
 
     player.setSprite('EmilioCorrales')
     player.addAttack("q")
@@ -72,7 +72,7 @@ const charEmilioCorrales = () => {
 }
 
 const charEmilySmith = () => {
-    let player = gm.addPlayer(500,80, 30, 80, "Bastilan")
+    let player = gm.addPlayer(500,80, 30, 80, "EmilySmith")
 
     player.setSprite('EmilySmith')
     player.addAttack("q")
@@ -81,7 +81,7 @@ const charEmilySmith = () => {
 }
 
 const charEthanWansakul = () => {
-    let player = gm.addPlayer(500,80, 30, 80, "Bastilan")
+    let player = gm.addPlayer(500,80, 50, 100, "EthanWansakul")
 
     player.setSprite('EthanWansakul')
     player.addAttack("q")
@@ -89,7 +89,7 @@ const charEthanWansakul = () => {
     return player
 }
 const charFlorenceMonedero = () => {
-    let player = gm.addPlayer(500,80, 30, 80, "Bastilan")
+    let player = gm.addPlayer(500,80, 30, 80, "FlorenceMonedero")
 
     player.setSprite('FlorenceMonedero')
     player.addAttack("q")
@@ -97,7 +97,7 @@ const charFlorenceMonedero = () => {
     return player
 }
 const charIsbelRivera = () => {
-    let player = gm.addPlayer(500,80, 30, 80, "Bastilan")
+    let player = gm.addPlayer(500,80, 30, 80, "IsbelRivera")
 
     player.setSprite('IsbelRivera')
     player.addAttack("q")
@@ -105,7 +105,7 @@ const charIsbelRivera = () => {
     return player
 }
 const charJackCarey = () => {
-    let player = gm.addPlayer(500,80, 30, 80, "Bastilan")
+    let player = gm.addPlayer(500,80, 30, 80, "JackCarey")
 
     player.setSprite('JackCarey')
     player.addAttack("q")
@@ -113,7 +113,7 @@ const charJackCarey = () => {
     return player
 }
 const charJohzuaRodriguez = () => {
-    let player = gm.addPlayer(500,80, 30, 80, "Bastilan")
+    let player = gm.addPlayer(500,80, 30, 80, "JohzuaRodriguez")
 
     player.setSprite('JohzuaRodriguez')
     player.addAttack("q")
@@ -121,7 +121,7 @@ const charJohzuaRodriguez = () => {
     return player
 }
 const charLucasTolzein = () => {
-    let player = gm.addPlayer(500,80, 30, 80, "Bastilan")
+    let player = gm.addPlayer(500,80, 30, 80, "LucasTolzein")
 
     player.setSprite('LucasTolzein')
     player.addAttack("q")
@@ -129,7 +129,7 @@ const charLucasTolzein = () => {
     return player
 }
 const charMariellaCiniglio = () => {
-    let player = gm.addPlayer(500,80, 30, 80, "Bastilan")
+    let player = gm.addPlayer(500,80, 30, 80, "MariellaCiniglio")
 
     player.setSprite('MariellaCiniglio')
     player.addAttack("q")
@@ -138,7 +138,7 @@ const charMariellaCiniglio = () => {
 }
 
 const charMaryAbbyRigg = () => {
-    let player = gm.addPlayer(500,80, 30, 80, "Bastilan")
+    let player = gm.addPlayer(500,80, 30, 80, "MaryAbbyRigg")
 
     player.setSprite('MaryAbbyRigg')
     player.addAttack("q")
@@ -146,7 +146,7 @@ const charMaryAbbyRigg = () => {
     return player
 }
 const charMateoMendez = () => {
-    let player = gm.addPlayer(500,80, 30, 80, "Bastilan")
+    let player = gm.addPlayer(500,80, 30, 80, "MateoMendez")
 
     player.setSprite('MateoMendez')
     player.addAttack("q")
@@ -154,7 +154,7 @@ const charMateoMendez = () => {
     return player
 }
 const charMateoPenas = () => {
-    let player = gm.addPlayer(500,80, 30, 80, "Bastilan")
+    let player = gm.addPlayer(500,80, 30, 80, "MateoPenas")
 
     player.setSprite('MateoPenas')
     player.addAttack("q")
@@ -162,7 +162,7 @@ const charMateoPenas = () => {
     return player
 }
 const charMatiasLatorre = () => {
-    let player = gm.addPlayer(500,80, 30, 80, "Bastilan")
+    let player = gm.addPlayer(500,80, 30, 80, "MatiasLatorre")
 
     player.setSprite('MatiasLatorre')
     player.addAttack("q")
@@ -170,7 +170,7 @@ const charMatiasLatorre = () => {
     return player
 }
 const charMaximusGarcia = () => {
-    let player = gm.addPlayer(500,80, 30, 80, "Bastilan")
+    let player = gm.addPlayer(500,80, 30, 80, "MaximusGarcia")
 
     player.setSprite('MaximusGarcia')
     player.addAttack("q")
@@ -178,7 +178,7 @@ const charMaximusGarcia = () => {
     return player
 }
 const charMichaelBalius = () => {
-    let player = gm.addPlayer(500,80, 30, 80, "Bastilan")
+    let player = gm.addPlayer(500,80, 30, 80, "MichaelBalius")
 
     player.setSprite('MichaelBalius')
     player.addAttack("q")
@@ -186,7 +186,7 @@ const charMichaelBalius = () => {
     return player
 }
 const charNicholasChacon = () => {
-    let player = gm.addPlayer(500,80, 30, 80, "Bastilan")
+    let player = gm.addPlayer(500,80, 30, 80, "NicholasChacon")
 
     player.setSprite('NicholasChacon')
     player.addAttack("q")
