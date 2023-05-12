@@ -22,9 +22,18 @@ let player2;
 let box;
 
 function setup() {
-    lvlDaniellaRodrigues()
+    lvlTateLarsen()
+    // lvlRoberDiaz()
+    // lvlPaulPascatore()
+    // lvlNoahArevalo()
+    // lvlMaximusGarcia()
+    // lvlMatiasLatorre()
+    // lvlEmilySmith()
+    // lvlDaniellaRodrigues()
     // AnnabellaMoerbeck()
     player1 = charAdrianPena()
+    player2 = charEthanWansakul()
+
 }
 
 function keyPressed() {
@@ -35,8 +44,7 @@ function keyPressed() {
     }
 
     if(keyCode === 69) {
-        // player1.addAttack()
-        // console.log("e")
+
     }
 
 }

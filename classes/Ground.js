@@ -34,6 +34,7 @@ class Ground extends Entity{
         translate(pos.x, pos.y);
         rotate(angle);
         if(this.skin === false) {
+            if(this.options.color) fill(this.options.color)
             rect(0,0,this.w,this.h);
         } else {
             image(this.skin, 0,0, this.w, this.h)

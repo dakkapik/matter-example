@@ -9,22 +9,12 @@ const lvlAnnabellaMoerbeck = ()=> {
 
     let options = {skin: "IsabelaRivera-t"}
 
-    let ground1 = gm.addGround(250, 400, 350, 50, options)
-    let ground2 = gm.addGround(590, 800, 420, 50)
+    gm.addGround(250, 400, 350, 50, options)
+    gm.addGround(590, 800, 420, 50)
 
     gm.addGround(900, 550, 400, 50)
     gm.addGround(1200, 900,600, 40)
     gm.addGround(1750, 520, 150, 20)
-
-    player1 = gm.addPlayer(300,80, 120, 120, "Aurelian")
-    player2 = gm.addPlayer(500,80, 30, 80, "Bastilan")
-
-    player2.setColor("green")
-    player1.addAttack("q")
-
-    player2.setSprite('ShannaRose')
-    gm.console.addTracker("x pos","x", player1.body.position)
-
 }
 
 const lvlDaniellaRodrigues = () => {
@@ -37,41 +27,129 @@ const lvlDaniellaRodrigues = () => {
 
     let options = {skin: "MichaelBalius-t"}
 
-    let ground1 = gm.addGround(250, 400, 350, 50, options)
-    let ground2 = gm.addGround(590, 800, 420, 50)
+    gm.addGround(180, 800, 300, 190, options)
+    gm.addGround(640, 680, 300, 200, options)
 
-    gm.addGround(900, 550, 400, 50)
-    gm.addGround(1200, 900,600, 40)
-    gm.addGround(1750, 520, 150, 20)
-
-    player2 = gm.addPlayer(500,80, 30, 80, "Bastilan")
-
-    player2.setColor("green")
-
-    player2.setSprite('ShannaRose')
+    gm.addGround(1140, 750, 300, 200, options)
+    gm.addGround(1620, 620, 300, 200, options)
 }
 
-const lvlDaniellaRodriguez1 = () => {
-
-}
 const lvlEmilySmith = () => {
+    gm = new Game(1800, 1000, "EmilySmith");
+    rectMode(CENTER);
+    imageMode(CENTER);
+    engine = Engine.create();
+    runner = Runner.create();
+    Runner.run(runner, engine);
 
+    let options = {skin: "NicolasFeo-t"}
+
+    gm.addGround(180, 800, 300, 190, options)
+    gm.addGround(640, 680, 300, 200, options)
+
+    gm.addGround(1140, 750, 300, 200, options)
+    gm.addGround(1620, 620, 300, 200, options)
 }
+
 const lvlMatiasLatorre = () => {
+    gm = new Game(1800, 1000, "MatiasLatorre");
+    rectMode(CENTER);
+    imageMode(CENTER);
+    engine = Engine.create();
+    runner = Runner.create();
+    Runner.run(runner, engine);
 
+    let options = {color: "rgba(237, 159, 55, 1)"}
+
+    gm.addGround(180, 800, 300, 15, options)
+    gm.addGround(640, 680, 300, 15, options)
+    
+    gm.addGround(900, 300, 300, 15, options)
+
+    gm.addGround(1140, 750, 300, 15, options)
+    gm.addGround(1620, 620, 300, 15, options)
 }
-const lvlMaximusGarcia = () => {
 
+const lvlMaximusGarcia = () => {
+    gm = new Game(1800, 1000, "MaximusGarcia");
+    rectMode(CENTER);
+    imageMode(CENTER);
+    engine = Engine.create();
+    runner = Runner.create();
+    Runner.run(runner, engine);
+
+    let options = {skin: "NicolasFeo-t"}
+
+    gm.addGround(180, 800, 300, 190, options)
+    gm.addGround(640, 680, 300, 200, options)
+
+    gm.addGround(1140, 750, 300, 200, options)
+    gm.addGround(1620, 620, 300, 200, options)
 }
 const lvlNoahArevalo = () => {
+    gm = new Game(1800, 1000, "NoahArevalo");
+    rectMode(CENTER);
+    imageMode(CENTER);
+    engine = Engine.create();
+    runner = Runner.create();
+    Runner.run(runner, engine);
 
+    let options = {color:"blue"}
+
+    gm.addGround(180, 800, 300, 20, options)
+    gm.addGround(640, 680, 300, 20, options)
+
+    gm.addGround(180, 400, 300, 20, options)
+    gm.addGround(640, 280, 300, 20, options)
+
+    gm.addGround(1140, 750, 300, 20, options)
+    gm.addGround(1620, 620, 300, 20, options)
 }
 const lvlPaulPascatore = () => {
+    gm = new Game(1800, 1000, "PaulPascatore");
+    rectMode(CENTER);
+    imageMode(CENTER);
+    engine = Engine.create();
+    runner = Runner.create();
+    Runner.run(runner, engine);
 
+    let options = {skin: "NicolasFeo-t"}
+
+    gm.addGround(180, 800, 300, 190, options)
+    gm.addGround(640, 680, 300, 200, options)
+
+    gm.addGround(1140, 750, 300, 200, options)
+    gm.addGround(1620, 620, 300, 200, options)
 }
 const lvlRoberDiaz = () => {
+    gm = new Game(1800, 1000, "RoberDiaz");
+    rectMode(CENTER);
+    imageMode(CENTER);
+    engine = Engine.create();
+    runner = Runner.create();
+    Runner.run(runner, engine);
 
+    let options = {skin: "NicolasFeo-t"}
+
+    gm.addGround(180, 800, 300, 190, options)
+    gm.addGround(640, 680, 300, 200, options)
+
+    gm.addGround(1140, 750, 300, 200, options)
+    gm.addGround(1620, 620, 300, 200, options)
 }
 const lvlTateLarsen = () => {
+    gm = new Game(1800, 1000, "TateLarsen");
+    rectMode(CENTER);
+    imageMode(CENTER);
+    engine = Engine.create();
+    runner = Runner.create();
+    Runner.run(runner, engine);
 
+    let options = {skin: "NicolasFeo-t"}
+
+    gm.addGround(180, 800, 300, 190, options)
+    gm.addGround(640, 680, 300, 200, options)
+
+    gm.addGround(1140, 750, 300, 200, options)
+    gm.addGround(1620, 620, 300, 200, options)
 }
