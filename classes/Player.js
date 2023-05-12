@@ -92,21 +92,30 @@ class Player extends Entity{
             (img) => {
                 this.sprites['p'] = img
             },
-            ()=> {console.log("COULD NOT LOAD THIS CHARACTER PUNCH")}
+            ()=> {
+                this.sprites['p'] = this.sprites['i']
+                console.log("COULD NOT LOAD THIS CHARACTER PUNCH")
+            }
         )
 
         loadImage(`assets/char/${this.name}/k.png`, 
             (img) => {
                 this.sprites['k'] = img
             },
-            ()=> {console.log("COULD NOT LOAD THIS CHARACTER KICK")}
+            ()=> {
+                this.sprites['k'] = this.sprites['i']
+                console.log("COULD NOT LOAD THIS CHARACTER KICK")
+            }
         )
 
         loadImage(`assets/char/${this.name}/b.png`, 
             (img) => {
                 this.sprites['b'] = img
             },
-            ()=> {console.log("COULD NOT LOAD THIS CHARACTER BLOCK")}
+            ()=> {
+                this.sprites['b'] = this.sprites['i']
+                console.log("COULD NOT LOAD THIS CHARACTER BLOCK")
+            }
         )
          
     }
