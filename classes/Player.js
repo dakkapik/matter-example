@@ -228,7 +228,7 @@ class Player extends Entity{
         let y = this.body.position.y - attack.position.y
         let v = Vector.create(x, y)
         let nv = Vector.normalise(v)
-        let force = Vector.mult(nv, attack.profile.knockback)
+        let force = Vector.mult(nv, attack.profile.knockback * ((this.maxHealth - this.health) * 0.016))
         Body.applyForce(this.body, attack.position, force)
         // console.log(profile)
     }
@@ -330,7 +330,11 @@ class Player extends Entity{
 
         fill("grey")
         rect(0,0,this.maxHealth, 10)
-        fill("green")
+        if(this.health > 0){
+            fill("green")
+        } else {
+            fill("red")
+        }
         rect(0,0,this.health, 10)
 
         pop()
