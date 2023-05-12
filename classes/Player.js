@@ -13,8 +13,9 @@ class Player extends Entity{
         this.accVect = Vector.create(this.runSpeed, 0);
         this.topSpeed = 8;
         this.jumpForce = -0.3
-        this.invulFrames = 25;
-        this.health = 100
+        this.invulFrames = 80;
+        this.maxHealth = 100
+        this.health = this.maxHealth
 
         //timers
         this.timer = new Timer();
@@ -112,8 +113,9 @@ class Player extends Entity{
 
 
 
-    addAttack( id, attack) {
+    addAttack( id, attack ) {
         if(!this.attacks[id]) {
+            // console.log("THIS HAPPEND")
             // let profile = new AttackProfile(10, 0.2, 10, 4)
             // let attack = new Attack(20,20,0,0, this, profile)
 
@@ -122,10 +124,11 @@ class Player extends Entity{
         } 
     }
 
-    engageAttack (key) {
+    engageAttack (key, p1) {
         if(this.attackReady){
             let keyMapped
-            if(this.p1){
+
+            if(p1){
                 keyMapped = this.keyMap1[key]
             } else {
                 keyMapped = this.keyMap2[key]
@@ -179,21 +182,28 @@ class Player extends Entity{
                     this.grounded = true;
                     this.jumps = 0;
                 }else {
-                    // console.log(collision.bodyA)
+                    // console.log(collision)
                 }
 
-                if(
-                    collision.bodyA.label === 'attack'||
-                    collision.bodyB.label === 'attack'
-                ){
-                    if (!this.hitInvul) {
-                        this.hitInvul = true
-                        this.timer.addTimer(this.invulFrames, ()=> {
-                            this.hitInvul = false
-                        })
-                        if(collision.bodyA.label === 'attack'){
+                if(!this.p1) {
+                    if(collision.bodyA.label === 'attack'){
+                        if (!this.hitInvul) {
+                            this.hitInvul = true
+                            this.timer.addTimer(this.invulFrames, ()=> {
+                                this.hitInvul = false
+                            })
                             this.damage(collision.bodyA)
-                        } else {
+                        }
+                    }
+                } else {
+                    if(collision.bodyB.label === 'attack' &&
+                        collision.bodyA.label === "player"
+                    ){
+                        if (!this.hitInvul) {
+                            this.hitInvul = true
+                            this.timer.addTimer(this.invulFrames, ()=> {
+                                this.hitInvul = false
+                            })
                             this.damage(collision.bodyB)
                         }
                     }
@@ -203,10 +213,8 @@ class Player extends Entity{
     }
 
     damage(attack) {
-        console.log("THIS")
-        console.log(attack)
-        this.health - attack.profile.damage
-
+        this.health -= attack.profile.damage
+        // console.log(this.health)
         let x = this.body.position.x - attack.position.x
         let y = this.body.position.y - attack.position.y
         let v = Vector.create(x, y)
@@ -298,5 +306,24 @@ class Player extends Entity{
         this.movement()
 
         this.show()
+        this.drawHealth()
+    }
+
+    drawHealth() {
+        // console.log(this.body.position)
+
+        let pos = {...this.body.position}
+        pos.y = pos.y - this.h/2 - 10
+        pos.x = pos.x - this.w/2
+        push()
+        rectMode(CORNERS);
+        translate(pos.x, pos.y)
+
+        fill("grey")
+        rect(0,0,this.maxHealth, 10)
+        fill("green")
+        rect(0,0,this.health, 10)
+
+        pop()
     }
 }

@@ -58,7 +58,7 @@ class Attack {
         if(this.parent.fRight){
             pos.x = centre.x +this.offSetX
         } else {
-            pos.x = centre.x -this.offSetY
+            pos.x = centre.x -this.offSetX
         }
 
         pos.y = centre.y + this.offSetY
@@ -69,9 +69,9 @@ class Attack {
 
     show() {
         if(
-            true
-            // this.active
-            // && this.parent.settings.show_hitbox
+            // true
+            this.active
+            && this.parent.settings.show_hitbox
             ){
             let pos = this.attBody.position
             let angle = this.attBody.angle

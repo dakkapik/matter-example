@@ -22,23 +22,14 @@ let player2;
 let box;
 
 function setup() {
-    // lvlTateLarsen()
-    // lvlRoberDiaz()
-    // lvlPaulPascatore()
-    // lvlNoahArevalo()
-    // lvlMaximusGarcia()
-    // lvlMatiasLatorre()
-    lvlEmilySmith()
-    // lvlDaniellaRodrigues()
-    // AnnabellaMoerbeck()
-    // player1 = charAdrianPena()
-    // player2 = charEthanWansakul()
+    lvlLoad[2]()
     charLoad.forEach((char, index)=> {
         // console.log(char)
+        // console.log(index)
     })
 
     player1 = charLoad[1](true)
-    player2 = charLoad[2](false)
+    player2 = charLoad[3](false)
 }
 
 function keyPressed() {
